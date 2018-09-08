@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="" />
+  <title>103 Project 2: Prime Numbers</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  
+  <style type="text/css">
+  body 
+  {
+  	font-family:Gill Sans MT;
+  	color:#657b83;
+  	background-color:#fdf6e3;
+  	max-width:500pt;
+  	padding-left:25pt;
+  	padding-right:25pt;
+  	padding-bottom:20pt;
+  	margin:0 auto 0 auto;
+  	text-align:justify;
+  }
+  a:link {color:#6c71c4;}
+  a:visited {color:#859900;}
+  a:hover {color:#268bd2;}
+  a:active {color:#d33682;}
+  h1{}
+  h2{border-style:solid;
+   text-align:center;
+  }
+  h3
+  {
+  	margin-bottom:2pt;
+  	/*color:#268bd2;*/
+  	font-weight:bold;
+  }
+  strong
+  {
+  	color:#d33682;
+  	font-weight:bolder;
+  }
+  em
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  	font-weight:bolder;
+  }
+  code
+  {
+      background-color:#eee8d5;
+      color:#586e75;
+  }
+  table.sourceCode
+  {
+      background-color:#eee8d5;
+      color:#586e75;
+  }
+  pre.sourceCode
+  {
+      background-color:#eee8d5;
+      color:#586e75;
+  }
+  .math
+  {
+      /*background-color:#eee8d5;*/
+      color:#586e75;
+      font-family:Times New Roman;
+  }
+  /*use a contextual style to undo the blue-ness:*/
+  .math em
+  {
+      color:#586e75;
+  	font-weight:normal;
+  }
+  .descrip
+  {
+  	max-width:500pt;
+  	padding-left:25pt;
+  	text-align:justify;
+  }
+  .descripbig
+  {
+  	max-width:575pt;
+  	padding-left:0pt;
+  	text-align:justify;
+  }
+  .emph
+  {
+  	color:#d33682;
+  	font-weight:bolder;
+  }
+  .litem
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  	font-weight:bolder;
+  }
+  .hl
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  }
+  .required
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  	font-weight:bold;
+  }
+  .inputbox
+  {
+  	background-color:#eee8d5;
+  	color:#586e75;
+  	font-family:Gill Sans MT;
+  	font-weight:bolder;
+  }
+  </style>
+</head>
+<body>
+<header>
+<h1 class="title">103 Project 2: Prime Numbers</h1>
+<p class="author"></p>
+</header>
+<h2 id="due-sunday-september-23rd-1159pm"><em>Due:</em> Sunday, September 23rd @ 11:59pm</h2>
+<h2 id="synopsis">Synopsis</h2>
+<p>This project asks you to implement a simple primality test. Recall that a number <span class="math inline"><em>n</em> &gt; 1</span> is <em>prime</em> if the only divisors of <span class="math inline"><em>n</em></span> are <span class="math inline">1</span> and itself (we don’t consider <span class="math inline">1</span> to be prime).</p>
+<p>Here’s what you can expect to learn from this:</p>
+<ul>
+<li>Looping and conditional constructs.</li>
+<li>How to make programs that play well with others (cf. the <a href="https://en.wikipedia.org/wiki/Unix_philosophy">unix philosophy</a>).</li>
+<li>A little bit about some nifty unix tools like <a href="https://en.wikipedia.org/wiki/AWK">awk</a> and <a href="https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29">bash</a>.</li>
+</ul>
+<h2 id="important-notes-on-grading">Important Notes on Grading</h2>
+<p>As always,</p>
+<ul>
+<li>Code that does not compile will receive a 0.</li>
+<li>Files that are not properly named will receive a 0. (See the section below on “what to submit.”)</li>
+</ul>
+<h2 id="details">Details</h2>
+<p>This time around, your program will not be so chatty. The program will just wait for you to type an integer, and then print a 0 or 1 to indicate whether or not that integer was prime. Here’s some sample output of an interactive session (assuming <code>primetest</code> is the name of the executable<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>):</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" data-line-number="1">$ <span class="ex">./primetest</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="ex">11</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="ex">1</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="ex">12</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="ex">0</span></a></code></pre></div>
+<p>After <code>11</code> the response is <code>1</code>, indicating primality; after <code>12</code>, the response is <code>0</code>, meaning it is not prime. You can end the interactive session by hitting <code>Ctrl-D</code>, or by entering something that is not an integer, like the character <code>a</code>. <strong>Important note:</strong> your program is <strong>not</strong> supposed to print any messages! It is just supposed to <strong>read from standard input, and write zeros and ones to standard output</strong>. The next section will explain why this is a good idea.</p>
+<h2 id="aside-interaction-with-the-shell">Aside: Interaction With the Shell</h2>
+<p>You may be thinking that this seems like a lousy, user-unfriendly interface, and perhaps in some situations you’d be right. But it really depends on your point of view. What we intend to build here is <strong>not a product for the masses</strong>, but a <em>tool for the competent</em>. As I hope to demonstrate shortly, adding a bunch of chatty output messages would only serve to diminish the utility of this program as a tool.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> (And if we’re honest, who would really expect a program about prime numbers to be designed for mass-consumption?)</p>
+<p>All right, so let’s take a look at a few examples of how someone with a little bit of knowledge about the shell might use your program. To begin, we could use the shell (<a href="https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29">bash</a>) to print out a list showing which integers are prime:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" data-line-number="1">$ <span class="bu">echo</span> <span class="dt">{1..10}</span> <span class="kw">|</span> <span class="ex">./primetest</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="ex">0</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="ex">1</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="ex">1</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="ex">0</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="ex">1</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="ex">0</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="ex">1</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="ex">0</span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="ex">0</span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="ex">0</span></a></code></pre></div>
+<p>Not so exciting, but notice the use of the pipe <code>|</code> operator, which takes the output of <code>echo</code> and sends it to our program through <em><a href="https://en.wikipedia.org/wiki/Standard_streams">standard input</a></em>. So, the <code>cin</code> statements in our code will pick up the output from <code>echo</code>, as if we just sat there typing all the numbers in from the shell. (By the way – the command <code>echo {1..10}</code> by itself will just print the list of integers from 1 to 10 with spaces in between – try it out.)</p>
+<p>Let’s try something a little more interesting. Suppose we wanted to generate a list of all the prime numbers less than <span class="math inline">100</span>. Brace expansion gives us an easy way to get the list of consecutive integers (<code>{1..100}</code>), and then we can use <a href="http://www.hcs.harvard.edu/~dholland/computers/awk.html">awk</a> with our program to filter the list:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" data-line-number="1">$ <span class="bu">echo</span> <span class="dt">{1..100}</span> <span class="kw">|</span> <span class="ex">./primetest</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="st">&#39;/1/ {print NR}&#39;</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="ex">2</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="ex">3</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="ex">...</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="ex">97</span></a></code></pre></div>
+<p>Note the repeated use of the pipe operator <code>|</code> to chain the output of one program to the input of the next. Since awk was also designed to read standard input, we can send our <code>cout</code> statements right to it using the pipe! The awk stuff might look a little cryptic, but it is simple: in plain English, it says something like “if a line has a 1, print out the line number”. The quoted string is the entire awk program containing those instructions. The interested reader can follow up <a href="http://www.hcs.harvard.edu/~dholland/computers/awk.html">here</a>.</p>
+<p>Now let’s say you wanted, for some reason, to find only the primes less than 100 which end in the digit 9. Just a small change does it:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" data-line-number="1">$ <span class="bu">echo</span> <span class="dt">{1..100}</span> <span class="kw">|</span> <span class="ex">./primetest</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="st">&#39;/1/ &amp;&amp; NR % 10 == 9 {print NR}&#39;</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="ex">19</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="ex">29</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="ex">59</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="ex">79</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="ex">89</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co"># alternative, faster method (filtering is done before testing primality)</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9">$ <span class="bu">echo</span> <span class="dt">{9..100..10}</span> <span class="kw">|</span> <span class="ex">./primetest</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="st">&#39;/1/ {print (NR-1)*10 + 9}&#39;</span></a></code></pre></div>
+<p>Or we could store a list of primes less than 1000 in a bash array, and see how many primes we have:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb5-1" data-line-number="1">$ <span class="va">primes=($(</span><span class="bu">echo</span> <span class="dt">{1..1000}</span> <span class="kw">|</span> <span class="ex">./primetest</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="st">&#39;/1/ {print NR}&#39;</span><span class="va">))</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">$ <span class="bu">echo</span> <span class="va">${primes[@]}</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="ex">2</span> 3 5 7 11 13 17 19 23 ...</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="ex">...</span> 911 919 929 937 941 947 953 967 971 977 983 991 997</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">$ <span class="bu">echo</span> <span class="va">${#primes[@]}</span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="ex">168</span></a></code></pre></div>
+<p>Or even print a nice formatted list in html:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb6-1" data-line-number="1">$ <span class="bu">echo</span> <span class="dt">{1..1000}</span> <span class="kw">|</span> <span class="ex">./primetest</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="st">&#39;BEGIN{print &quot;&lt;html&gt;&lt;body&gt;&lt;ol&gt;\n&quot;} &#39;</span>\</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="st">&#39;/1/ {print &quot;&lt;li&gt;&quot;NR&quot;&lt;/li&gt;&quot;} END{print &quot;&lt;/ol&gt;&lt;/body&gt;&lt;/html&gt;&quot;}&#39;</span> \</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">  <span class="op">&gt;</span> primeslist.html</a></code></pre></div>
+<p>The file <code>primelist.html</code> would then display something like</p>
+<blockquote>
+<ol type="1">
+<li>2</li>
+<li>3</li>
+<li>5</li>
+<li>7…</li>
+</ol>
+</blockquote>
+<p>And so on. Try it!!</p>
+<p>The list of possibilities goes on and on… Hopefully this gives you an idea of the capabilities of the unix shell, and perhaps will generate some ideas for you down the line. Note that I don’t expect you to understand every detail right away – in fact, I would be surprised if that were the case. So don’t be worried. But I encourage you to go read about it at some point. These are powerful tools, and you’d be doing yourself a great service to learn more about them. Here’s a nice <a href="http://www.hcs.harvard.edu/~dholland/computers/awk.html">introduction to awk</a>.</p>
+<p><strong>Important:</strong> once you’re done with the homework, come back through here and try out all of the examples above.</p>
+<h2 id="hints">Hints</h2>
+<p><strong>Regarding the algorithm:</strong> There are a lot of very clever primality tests out there. I don’t want you to write any of those. Keep it simple – just do trial division by odd integers until you either find a divisor, or you run out of candidates. I.e., to figure out if an odd number <span class="math inline"><em>n</em></span> is prime, we can check to see if any of <span class="math inline">{3, 5, 7, ..., <em>n</em> − 2}</span> divide <span class="math inline"><em>n</em></span>. And of course if <span class="math inline"><em>n</em></span> is even, then it is prime only if <span class="math inline"><em>n</em> = 2</span>. One thing to think about: I claim we can stop checking <em>long before</em> <span class="math inline"><em>n</em> − 2</span>. See if you can figure out how many checks are really required, and modify your program to only check as many as necessary.</p>
+<p><strong>Regarding the programming:</strong> You may want to start with a template that looks something like this:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource cpp numberLines"><code class="sourceCode cpp"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">using</span> <span class="bu">std::</span>cin;</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw">using</span> <span class="bu">std::</span>cout;</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="kw">using</span> <span class="bu">std::</span>endl;</a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="pp">#include </span><span class="im">&lt;cmath&gt;</span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="dt">int</span> main()</a>
+<a class="sourceLine" id="cb7-8" data-line-number="8">{</a>
+<a class="sourceLine" id="cb7-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb7-10" data-line-number="10">}</a></code></pre></div>
+<p>The <code>#include &lt;cmath&gt;</code> is there in case you figure out the efficiency improvement I mentioned earlier. The <code>sqrt</code> function might be of use. Whoops. I gave away another hint.</p>
+<p>To read from standard input, you’ll want to use <code>cin</code>, but it may not be so obvious how to decide when to stop, and we don’t want to display a menu, as we mentioned earlier. The following should work pretty well:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource cpp numberLines"><code class="sourceCode cpp"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="dt">unsigned</span> <span class="dt">long</span> n;</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="cf">while</span>(cin &gt;&gt; n) {</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">    <span class="co">//do stuff.</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">}</a></code></pre></div>
+<p>You can think of the expression <code>cin &gt;&gt; n</code> evaluating to <code>false</code> as a boolean when the user enters a non-integer, or when the end of an input stream is encountered. At first, you may find it a little strange to interpret a <code>cin</code> statement as a boolean, but do you remember our <code>if(x=23) {...}</code> example from class where we accidentally left out an equals sign? This is much the same. Just about every expression in C++ <em>has a datatype and a value</em>. Get used to that, and think about it as you go.</p>
+<p>One more thing that may be of use is the <a href="http://en.cppreference.com/w/cpp/language/break">break statement</a>. This is a convenient way to stop a loop, rather than explicitly manipulating the variables in the condition that it tests. For example, once you find a non-trivial divisor of the number you’re testing, you may want to immediately end the inner loop, since you know at that point that the number isn’t prime.</p>
+<p><strong>Makefiles:</strong> I gave you a makefile this time. Using the tutorials (<a href="https://web.archive.org/web/20160609213824/http://capone.mtsu.edu/csdept/FacilitiesAndResources/make.htm">here</a> and <a href="https://web.archive.org/web/20171220210007/http://www.cs.umd.edu/class/fall2002/cmsc214/Tutorial/makefile.html">here</a>), try to reverse engineer it if you have time. It is overly-simplistic, but pretty easy to follow.</p>
+<h2 id="testing-debugging-your-code">Testing + Debugging Your Code</h2>
+<p>To make things easier for you, a test procedure comes with the homework. The file <code>somenumbers</code> contains a list of test input, and <code>rightanswers</code> has a precomputed list of answers. Once you have your program working well enough to test, just run <code>make &amp;&amp; ./sanitycheck.sh</code> from within the directory, and it will tell you if anything goes wrong. You can also just run</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb9-1" data-line-number="1">$ <span class="ex">gvimdiff</span> -f <span class="op">&lt;(</span><span class="ex">./primetest</span> <span class="op">&lt;</span> somenumbers<span class="op">)</span> rightanswers</a></code></pre></div>
+<p>And it will show you where the differences are in the outputs. (Note the fancy “process substitution”… useful!)</p>
+<h3 id="debugging">Debugging</h3>
+<p>Should something go wrong and your output is different than what it is supposed to be, don’t panic and don’t get frustrated! Here are some (fairly general) steps you can take to fix your program. Think of what follows as part II of the <a href="https://www-cs.ccny.cuny.edu/~wes/CSC103/gdb.html">gdb tutorial</a> (which you should read first!).</p>
+<ol type="1">
+<li>Find an input (preferably as small as possible) where your code fails. Let’s say the smallest number your code mislabels is <code>9</code>.</li>
+<li>Make sure your program is compiled with <code>-g</code> (the makefile is already set to do this).</li>
+<li>Make a note of the “interesting” variables that you use, like the variable to hold the input, and maybe another that runs through potential divisors. In my program, these are named <code>n</code> and <code>k</code> respectively.</li>
+<li>Open another terminal (this will be for your program’s output<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>) and from this new terminal run <code>$ tty</code>. You should see something like <code>/dev/pts/3</code>. I’ll use this value – adjust as needed in what follows.</li>
+<li>Start <code>gdb</code> with <code>$ gdb -tty /dev/pts/3 primetest</code>, and then enter the following gdb commands:</li>
+</ol>
+<div class="sourceCode" id="cb10"><pre class="sourceCode apache"><code class="sourceCode apache"><a class="sourceLine" id="cb10-1" data-line-number="1">(gdb) tui enable</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">(gdb) break main</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">(gdb) run &lt;&lt;&lt;&quot;9&quot;</a></code></pre></div>
+<p><em>NOTE:</em> the <code>&lt;&lt;&lt;&quot;9&quot;</code> gives your program the string <code>&quot;9&quot;</code> as <code>stdin</code>, as if you had typed it. Remember to change it to whatever inputs fail for you. You can test more numbers by adding them to that string (e.g., <code>&lt;&lt;&lt;&quot;9 16 25&quot;</code>), or storing them in a file and using <code>run &lt; filewithnumbers</code> instead.</p>
+<p>You should now have your code at the top of the window, stopped at the first line of <code>main()</code>. Now let’s set <code>gdb</code> to print some of your interesting variables each time the program is paused (see <a href="https://sourceware.org/gdb/onlinedocs/gdb/Auto-Display.html">automatic display</a> in the <code>gdb</code> documentation).</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode apache"><code class="sourceCode apache"><a class="sourceLine" id="cb11-1" data-line-number="1">(gdb) display n</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">(gdb) display k</a></code></pre></div>
+<p>You can also display <em>expressions</em> which might be useful, e.g. <code>display n%k</code>. Now we can step through the program and with any luck, see why / how it is broken. Just use the <code>next</code> command and keep hitting enter, and you can walk through your code one statement at a time, printing the “interesting” variable contents as you go.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode apache"><code class="sourceCode apache"><a class="sourceLine" id="cb12-1" data-line-number="1">(gdb) next</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">1: n = 9</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3">2: k = 3</a>
+<a class="sourceLine" id="cb12-4" data-line-number="4">3: n%k = 0</a>
+<a class="sourceLine" id="cb12-5" data-line-number="5">...</a></code></pre></div>
+<p>Remember: when you hit a <code>cout</code> statement, what you print will appear in that other terminal, not in the <code>gdb</code> window. <em>NOTE:</em> you can save a little space by wrapping those variables into an array (if they all have the same datatype!). Try this:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode apache"><code class="sourceCode apache"><a class="sourceLine" id="cb13-1" data-line-number="1">(gdb) undisplay</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">Delete all auto-display expressions? (y or n) y</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">(gdb) display {n,k,n%k}</a>
+<a class="sourceLine" id="cb13-4" data-line-number="4">4: {n,k,n%k} = {9, 3, 0}</a>
+<a class="sourceLine" id="cb13-5" data-line-number="5">(gdb) next</a>
+<a class="sourceLine" id="cb13-6" data-line-number="6">4: {n,k,n%k} = {9, 3, 0}</a>
+<a class="sourceLine" id="cb13-7" data-line-number="7">...</a></code></pre></div>
+<p>Hopefully this will help you figure it out!</p>
+<h2 id="submission-procedure">Submission Procedure</h2>
+<p>Turn your assignment in <a href="https://www-cs.ccny.cuny.edu/~wes/CSC103/upload.html">here</a>. A few <strong>important notes:</strong></p>
+<ul>
+<li><em>Save the receipt.</em> You will need this to get your homework score back later from <a href="https://www-cs.ccny.cuny.edu/~wes/CSC103/download.html">the hw download page</a>.</li>
+<li><em>Don’t change the filename.</em> Just edit and submit the file from the repository (in this case <code>primetest.cpp</code>). If you turn a file with a different name, it will not be graded.</li>
+<li><em>Respect the deadline.</em> Turning in homework past the deadline will be noticed, and may lead to a zero.</li>
+</ul>
+<!--  links  -->
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>For example, if you compiled with <code>g++ primetest.cpp -o primetest</code>, or just used the makefile<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>Most programs are quiet by default, but give the user a <code>--verbose</code> option to display messages about what is going on.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>You could also use that terminal for input, but the lack of visual feedback / confusing visual feedback makes it less than ideal, so we supply the input in the <code>run</code> command instead.<a href="#fnref3" class="footnote-back">↩</a></p></li>
+</ol>
+</section>
+</body>
+</html>
