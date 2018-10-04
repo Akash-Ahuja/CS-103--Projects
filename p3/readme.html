@@ -282,6 +282,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>The test script assumes that if <code>-w -</code> is given to your program on the command line, then it will write <code>stdout</code>, and not just a file named “-”. If you haven’t made that work, then <code>test.sh</code> will fail! (It also uses <code>-f 1</code>, so make sure your program understands <code>-f</code> too!)</li>
 <li>If something goes wrong, it will give you a message like <code>2 --&gt; 3 failed</code>. This means the output of your program (for one generation) on <code>tests/2</code> was different than <code>tests/3</code>, but they should have been the same. The script will give you a <code>diff</code> command that you can use to investigate (it should contain the exact invocation of your program that was used in the test).</li>
 </ol>
+<h3 id="debugging">Debugging</h3>
+<p>If you want to run your program under <code>gdb</code>, compile it with <code>make -B debug</code> to make sure all the variable names are made visible to <code>gdb</code>. Then follow the <a href="https://www-cs.ccny.cuny.edu/~wes/CSC103/gdb.html">tutorial</a>.</p>
 <!---}}-->
 <!---{{ Remarks-->
 <h2 id="remarks">Remarks</h2>
