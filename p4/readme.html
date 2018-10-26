@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="" />
+  <title>103 Project 4: Reinventing Some Wheels…</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  
+  <style type="text/css">
+  body 
+  {
+  	font-family:Gill Sans MT;
+  	color:#657b83;
+  	background-color:#fdf6e3;
+  	max-width:500pt;
+  	padding-left:25pt;
+  	padding-right:25pt;
+  	padding-bottom:20pt;
+  	margin:0 auto 0 auto;
+  	text-align:justify;
+  }
+  a:link {color:#6c71c4;}
+  a:visited {color:#859900;}
+  a:hover {color:#268bd2;}
+  a:active {color:#d33682;}
+  h1{}
+  h2{border-style:solid;
+   text-align:center;
+  }
+  h3
+  {
+  	margin-bottom:2pt;
+  	/*color:#268bd2;*/
+  	font-weight:bold;
+  }
+  strong
+  {
+  	color:#d33682;
+  	font-weight:bolder;
+  }
+  em
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  	font-weight:bolder;
+  }
+  code
+  {
+      background-color:#eee8d5;
+      color:#586e75;
+  }
+  table.sourceCode
+  {
+      background-color:#eee8d5;
+      color:#586e75;
+  }
+  pre.sourceCode
+  {
+      background-color:#eee8d5;
+      color:#586e75;
+  }
+  .math
+  {
+      /*background-color:#eee8d5;*/
+      color:#586e75;
+      font-family:Times New Roman;
+  }
+  /*use a contextual style to undo the blue-ness:*/
+  .math em
+  {
+      color:#586e75;
+  	font-weight:normal;
+  }
+  .descrip
+  {
+  	max-width:500pt;
+  	padding-left:25pt;
+  	text-align:justify;
+  }
+  .descripbig
+  {
+  	max-width:575pt;
+  	padding-left:0pt;
+  	text-align:justify;
+  }
+  .emph
+  {
+  	color:#d33682;
+  	font-weight:bolder;
+  }
+  .litem
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  	font-weight:bolder;
+  }
+  .hl
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  }
+  .required
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  	font-weight:bold;
+  }
+  .inputbox
+  {
+  	background-color:#eee8d5;
+  	color:#586e75;
+  	font-family:Gill Sans MT;
+  	font-weight:bolder;
+  }
+  </style>
+</head>
+<body>
+<header>
+<h1 class="title">103 Project 4: Reinventing Some Wheels…</h1>
+<p class="author"></p>
+</header>
+<h2 id="due-friday-november-9th-recitation"><em>Due:</em> Friday, November 9th @ Recitation</h2>
+<!---{{ Synopsis-->
+<h2 id="synopsis">Synopsis</h2>
+<p>In this project, you’ll re-implement some standard unix utilities. In particular, you’ll make clones (perhaps with some missing or different functionality) of <code>wc,sort,uniq,shuf</code> and <code>tr</code>.</p>
+<ul>
+<li>More about basic C++ data structures.</li>
+<li>Functions and arguments.</li>
+<li>A bit more about the unix shell.</li>
+</ul>
+<h2 id="important-notes-on-grading">Important Notes on Grading</h2>
+<p>Unlike prior assignments, you’ll do this one collaboratively. Teams <strong>must be 3 – 4 people</strong>, and <strong>your teammates must be in the same recitation</strong>. Details:</p>
+<ul>
+<li>Everyone should sign up on <a href="https://bitbucket.org/">bitbucket</a>.</li>
+<li>Designate one member of your team to be the leader / repository owner. (They’ll set up the repository and grant access to the rest of the team.)</li>
+<li>Commits from the team members can be incorporated in one of two ways:
+<ol type="1">
+<li>Follow the instructions on <a href="http://www-cs.ccny.cuny.edu/~wes/CSC103/scm.html#collaborate">collaborating with git</a>. (Team leaders: don’t forget to give other members write access to the repository.)</li>
+<li>Use <a href="https://www.atlassian.com/git/tutorials/making-a-pull-request/example">bitbucket’s fork + pull request</a> features.</li>
+</ol>
+<strong>NOTE:</strong> Either way you do it, you should follow the guidelines given above about <a href="http://www-cs.ccny.cuny.edu/~wes/CSC103/scm.html#collaborate">avoiding merge conflicts</a>.</li>
+<li>Team leaders – please <em>edit</em> (or start, if it doesn’t exist) a piazza post containing the url of your repository, and a list of the team’s members. Please make different posts for each section (MM,MM2,MM3).</li>
+<li>Your projects will be graded based on whether or not they pass the automated tests, and whether or not each team member is contributing (as evidenced by the commit logs).</li>
+</ul>
+<!---}}-->
+<!---{{ Details-->
+<h2 id="details">Details</h2>
+<p>Again, we’ll try to adhere to the <a href="https://en.wikipedia.org/wiki/Unix_philosophy">unix philosophy</a>: your program will read <a href="https://en.wikipedia.org/wiki/Standard_streams">standard input</a>, write <a href="https://en.wikipedia.org/wiki/Standard_streams">standard output</a>, and won’t print much of anything that isn’t necessary. Each of the tools we are making has a man page, accessible via <code>man [command name]</code>, so I’ll let you read those to get a general idea of what each one is supposed to do. E.g., if you have a question about how <code>shuf</code> is supposed to work, just run <code>man shuf</code> from your terminal and you will get a description of all the options. If that leaves anything unclear, you can just test out the system’s version and see what it does. <em>Note:</em> the system’s version of these programs is what you get by running plain <code>shuf</code> as opposed to <code>./shuf</code>, which is your own version. Some relevant reading: <a href="https://en.wikipedia.org/wiki/PATH_(variable)">the PATH varible</a>, and also look at <code>man which</code>. In what follows, I will mainly outline the ways that your version will be different than the standard one (that is, which behaviors you <em>don’t</em> need to emulate).</p>
+<p>One simplification we’ll use for now: you don’t need to work with files. You can always just read <code>stdin</code> and write to <code>stdout</code>. Here are some details for each one of the programs.</p>
+<h3 id="uniq">uniq</h3>
+<p>For this, the only options you need to make work are <code>-c</code> (show the count before each line), <code>-d</code> (only show duplicated lines), and <code>-u</code> (only print unique lines).</p>
+<h3 id="wc-word-count">wc (word count)</h3>
+<p>You should implement the standard <code>-c,-l,-w,-L</code> options, as well as a new <code>-u</code> option which is explained below. Without arguments, it should print the line, word, and byte counts, just as the system’s <code>wc</code>. A few differences from the system’s version:</p>
+<ol type="1">
+<li>You don’t need to process arguments (like filenames); you can assume that all the input comes from standard input.</li>
+<li>You don’t need to format the output exactly the same way as <code>wc</code>: you can just separate each piece of the output by a tab <code>\t</code> character, or a few spaces (but <strong>don’t</strong> print anything that <strong>isn’t whitespace</strong> between the output fields).</li>
+<li>You should add a <code>--uwords</code> option which counts the <em>unique</em> words.</li>
+</ol>
+<p>Here is some sample output from the program:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" data-line-number="1">$ <span class="bu">echo</span> <span class="st">&quot;this is a test&quot;</span> <span class="kw">|</span> <span class="ex">./wc</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">        <span class="ex">1</span>       4       15</a></code></pre></div>
+<p>The format of the output is</p>
+<pre><code>#lines  #words  #bytes  [longest line len]  #uniquewords</code></pre>
+<p>with each separated by whitespace (you can use tabs if you want). If no options are given, just print the first 3 items above, just like normal <code>wc</code> would do. Otherwise, print only the values corresponding to the flags your program was given, and output them in the same order as above.</p>
+<h3 id="shuf">shuf</h3>
+<p>This just permutes the lines of the input. It is important that each permutation is <em>equally likely</em> to be selected. You should implement the options <code>-e,-i,-n</code>.</p>
+<h3 id="sort">sort</h3>
+<p>You just need to sort the lines of the file. The only options you need to worry about are <code>-r</code> (sort descending), <code>-u</code> (don’t print duplicates) and <code>-f</code> (ignore the case).</p>
+<h3 id="tr">tr</h3>
+<p>This translates characters from one set to another set. The only options you need to worry about are <code>-c,-d</code>. To make things easier, you don’t need to worry about the character classes at all, although you should make your program work with at least the escape sequences <code>\\,\n,\t</code>.</p>
+<!---}}-->
+<!---{{ Testing-->
+<h2 id="compiling-and-testing">Compiling and Testing</h2>
+<h3 id="makefiles">Makefiles</h3>
+<p>There’s a makefile, so all you have to do to build the programs is execute <code>make</code>. If you want to try to reverse engineer the makefile, maybe look at the tutorials <a href="http://frank.mtsu.edu/~csdept/FacilitiesAndResources/make.htm">here</a> and <a href="http://www.cs.umd.edu/class/fall2002/cmsc214/Tutorial/makefile.html">here</a>.</p>
+<h3 id="automated-tests">Automated tests</h3>
+<p>The script <code>./rand-test.sh</code> takes a list of programs you want to test, invents some random files to test them on, and then checks (using every combination of flags) that they do the same thing as the system versions. For example to test them all:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" data-line-number="1">$ <span class="ex">./rand-test.sh</span> wc tr sort shuf uniq</a></code></pre></div>
+<p>If a test fails, you can see exactly what command was run that caused it to fail, as well as the input, which should be instrumental for any debugging that you need to do. For example, let’s say my <code>sort</code> is a little broken. Then running the test might look like this:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" data-line-number="1">$ <span class="ex">./rand-test.sh</span> sort</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="fu">sort</span> : testing flags -r -u -f ...</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="ex">XXX</span>: ./sort -u <span class="op">&lt;</span> /tmp/p3test-Cnwwxi/generic</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="ex">8</span> tests failed.  Input file(s) <span class="ex">saved</span> in /tmp/p3test-Cnwwxi/.</a></code></pre></div>
+<p>So the offending command was <code>./sort -u</code> and an example of an input that breaks it will be in the file <code>/tmp/p3test-Cnwwxi/generic</code>. Now we can investigate further by simply comparing our <code>./sort</code> with the real <code>sort</code> on that same input, say via the following:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb5-1" data-line-number="1">$ <span class="ex">./sort</span> -u <span class="op">&lt;</span> /tmp/p3test-Cnwwxi/generic <span class="op">&gt;</span> /tmp/mine</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">$ <span class="fu">sort</span> -u <span class="op">&lt;</span> /tmp/p3test-Cnwwxi/generic <span class="op">&gt;</span> /tmp/systems</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">$ <span class="ex">vimdiff</span> /tmp/mine /tmp/systems</a></code></pre></div>
+<p>(See below for how a more fancy way to do this without writing temp files.) <em>Note:</em> By default, it will delete the test files after a successful test. To keep them, do this:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb6-1" data-line-number="1">$ <span class="va">save=</span>1 <span class="ex">./rand-test.sh</span> wc tr sort shuf uniq</a></code></pre></div>
+<p>These tests passing does not mean your programs actually work, but it is at least a good sign that they aren’t totally broken! A few things to note, in particular:</p>
+<ul>
+<li>The script will do a very bad job testing <code>shuf</code>, which is by nature supposed to have an <em>unpredictable output</em>.</li>
+<li>It does not even try to test the <code>-u</code> option for your <code>wc</code> program.</li>
+<li>The test cases for <code>tr</code> are kind of limited.</li>
+</ul>
+<h3 id="testing-by-hand">Testing by hand</h3>
+<p>Good news – since you are reinventing wheels, working versions of all these programs are already on your computer! So it is quite easy to check your output on any input. E.g., to test my version of sort against that of the system’s, using my <code>wc.cpp</code> as input:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb7-1" data-line-number="1">$ <span class="ex">sha1sum</span> <span class="op">&lt;(</span><span class="ex">./sort</span> <span class="op">&lt;</span>wc.cpp<span class="op">)</span> <span class="op">&lt;(</span><span class="fu">sort</span> wc.cpp<span class="op">)</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="ex">b0e0f70a9399dd7097fa8d3f0b2397919aac33b9</span>  /dev/fd/63</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="ex">b0e0f70a9399dd7097fa8d3f0b2397919aac33b9</span>  /dev/fd/62</a></code></pre></div>
+<p>And if there are some differences, you can examine them using <code>vimdiff</code>:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb8-1" data-line-number="1">$ <span class="ex">vimdiff</span> <span class="op">&lt;(</span><span class="ex">./sort</span> <span class="op">&lt;</span> wc.cpp<span class="op">)</span> <span class="op">&lt;(</span><span class="fu">sort</span> wc.cpp<span class="op">)</span></a></code></pre></div>
+<p>Two shell features to notice (both of which we’ve mentioned before, I think):</p>
+<ol type="1">
+<li><em>Input redirection</em> (the <code>&lt; filename</code> stuff). This construct just takes the file and presents it to the program as <code>stdin</code>. Even though the only file your programs read is <code>stdin</code>, we can use this feature to send them any file.</li>
+<li><em>Process substitution</em> (the kind of funky <code>&lt;(...)</code> syntax). This just takes the output of one program and presents it to another program <em>as a file</em>. (Contrast this with a usual pipeline which sends one program’s output to <code>stdin</code> of another.) Read more about it <a href="https://en.wikipedia.org/wiki/Process_substitution">here</a>. It can be pretty useful.</li>
+</ol>
+<p>You can also construct complicated pipelines with some pieces written by you, and some from the system. For example, if I have written my own <code>uniq</code>, but I haven’t yet done <code>sort</code>, I can still test it out (recall that <code>uniq</code> requires its input to be sorted) like this:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb9-1" data-line-number="1">$ <span class="ex">sha1sum</span> <span class="op">&lt;(</span><span class="fu">cat</span> *.cpp <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="ex">./uniq</span> -c -d<span class="op">)</span> <span class="op">&lt;(</span><span class="fu">cat</span> *.cpp <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> -c -d<span class="op">)</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="ex">6d5d25046b627d468bf20a1f84f018e957e3ba58</span>  /dev/fd/63</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="ex">6d5d25046b627d468bf20a1f84f018e957e3ba58</span>  /dev/fd/62</a></code></pre></div>
+<!---}}-->
+<!---{{ Hints-->
+<h2 id="hints">Hints</h2>
+<p>I would advise you to tackle these in the approximate order as they appear in what follows.</p>
+<h3 id="uniq-1">uniq</h3>
+<p><strong>NOTE:</strong> this utility assumes that the input is already sorted. As a consequence, any duplicated entries will appear next to each other. This should allow you to write this program without using any fancy data structures, like vectors, sets, etc. Moreover, your program should consume a constant amount of memory, irrespective of the size of the input. Do <strong>not</strong> store the entirety of the input! Just print as you go. <strong>NOTE:</strong> this also shows a difference between <code>sort -u</code> and <code>uniq</code>: the memory footprint of <code>sort -u</code> will be larger than <code>uniq</code>, so if your input is already sorted, <code>uniq</code> is a better choice.</p>
+<p>One thing worth pointing out is that it can be a little tricky to get the spacing just right when displaying the count before the line (notice that <code>uniq -c</code> prints the count left-padded with spaces so that the total number of characters for displaying the count is always 7). One easy way to achieve this is by using <code>printf</code> to show the count, like this:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb10-1" data-line-number="1">printf(<span class="st">&quot;</span><span class="sc">%7lu</span><span class="st"> &quot;</span>,count);</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">/* </span><span class="al">NOTE</span><span class="co">: this assumes count is of type size_t */</span></a></code></pre></div>
+<p>You can also convince <code>cout</code> to do this, but I find the syntax awkward, so I usually stick with <code>printf</code>.</p>
+<h3 id="wc">wc</h3>
+<p><strong>General advice:</strong> a simple way to do this is to read one character at time and process it via a <a href="https://en.wikipedia.org/wiki/State_diagram">state diagram</a>. Perhaps use something like the following:</p>
+<figure>
+<img src="fsm.svg" alt="Fig. 1: State Diagram" /><figcaption>Fig. 1: State Diagram</figcaption>
+</figure>
+<p>Start in the node on the left hand side, and begin reading characters, one by one. As you read a character, you will move along the arrows as prescribed by the diagram. The diagram may look a little too simple to be useful, but note that what you want to do upon reading a character depends on what type of character you were reading previously – that is, it depends on which one of the nodes you are in! So once you’ve modeled the state diagram, all that remains is to add the right actions for each case. E.g., if you were just reading non-whitespace, and then read whitespace, you know you hit a word boundary, so increment the word count, and add the current word to your set of unique words. And if the non-whitespace character you just read was a newline (<code>\n</code>), then you should also increment the line count.</p>
+<p>I realize the diagram doesn’t look much like C++, but it is actually easy to convert. Just use an integer (or even boolean in this case) for which node you are in, and update it according to the diagram as you read characters. Using an <code>enum</code> is also common for situations like this. It lets you use memorable names instead of numbers, and without the hassle of setting up a separate variable for each state:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource cpp numberLines"><code class="sourceCode cpp"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co">// with an enum:</span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw">enum</span> states {ws,nws};</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="co">// the equivalent without an enum:</span></a>
+<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="at">const</span> <span class="dt">int</span> ws = <span class="dv">0</span>;</a>
+<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="at">const</span> <span class="dt">int</span> nws = <span class="dv">1</span>;</a>
+<a class="sourceLine" id="cb11-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb11-8" data-line-number="8"><span class="co">// using the enum, you can store the values in an int, or</span></a>
+<a class="sourceLine" id="cb11-9" data-line-number="9"><span class="co">// a variable of type &quot;states&quot;:</span></a>
+<a class="sourceLine" id="cb11-10" data-line-number="10"><span class="dt">int</span> state = ws;</a></code></pre></div>
+<p><strong>Unique words:</strong> For counting <em>unique</em> words, you can use a set. As you are traversing the arrows in the state diagram, keep adding new non-whitespace characters to a temporary string variable. Once you transition to the whitespace state, take whatever was in that variable and add it to a set. The set will take care of removing the duplicates for you.</p>
+<p><strong>Reading the input:</strong> the following looks plausibly correct:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource cpp numberLines"><code class="sourceCode cpp"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="dt">char</span> c;</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="cf">while</span> (cin &gt;&gt; c) {</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3">    <span class="co">// process c</span></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4">}</a></code></pre></div>
+<p>But you will probably not enjoy the results. This will do some strange things with whitespace, and will almost certainly throw off your results. The following should lead to fewer surprises:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource cpp numberLines"><code class="sourceCode cpp"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="dt">char</span> c;</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="cf">while</span> (fread(&amp;c,<span class="dv">1</span>,<span class="dv">1</span>,stdin)) {</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">    <span class="co">// process c</span></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4">}</a></code></pre></div>
+<p><strong>Debugging unique words:</strong> it might be nice to just see what is in your set of unique words while testing. Remember that you can go through a set using iterators like we saw in lecture:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource cpp numberLines"><code class="sourceCode cpp"><a class="sourceLine" id="cb14-1" data-line-number="1">set&lt;string&gt; uwords;</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co">// store unique words in uwords...</span></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co">// dump contents of uwords:</span></a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="cf">for</span> (set&lt;string&gt;::iterator i = uwords.begin(); i!=uwords.end(); i++) {</a>
+<a class="sourceLine" id="cb14-5" data-line-number="5">    cout &lt;&lt; *i &lt;&lt; endl;</a>
+<a class="sourceLine" id="cb14-6" data-line-number="6">}</a></code></pre></div>
+<p><strong>The last word:</strong> you may have forgotten the last word. Many files end with a newline, so you might not run into this often. But see what happens when you do this:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="bu">echo</span> -n <span class="st">&quot;hello there&quot;</span> <span class="kw">|</span> <span class="ex">./wc</span> -u</a></code></pre></div>
+<p>If this shows one word instead of two, see if you can fix it.</p>
+<p><strong>Counting tabs:</strong> if you compare your output of <code>./wc -L</code> with the system’s version on an input that contains tab characters, you might find some discrepancies. This is because <code>-L</code> attempts to calculate the longest line <em>as it would be displayed</em>, and assumes that a tab will be displayed using as many spaces as needed to reach the <em>next multiple of 8</em> characters. Once you know this is the problem, it should be an easy fix: when you hit a tab, instead of simply incrementing, try something like <code>len += 8-len%8</code> where <code>len</code> is the length of your current line.</p>
+<h3 id="shuf-1">shuf</h3>
+<p><strong>General advice:</strong> It might not be obvious how to select a random permutation such that each permutation is equally likely. Here are a few hints. First, note that you will need to know the total number of lines before printing anything out, so I might recommend just storing all of <code>stdin</code> in a vector and then applying a random permutation. You can actually apply the permutation to the vector, or just permute the indexes and use that to determine the order for printing.</p>
+<p>As for the random permutation, try this: pick a random thing to go first, and explicitly place it first. Then pick a random thing to go second, and explicitly place it second (but make sure that the first element stays put!). Continue like this until the last element of the vector. It is actually quite similar to our naive sorting algorithm from lecture: when sorting, we would place into <code>V[i]</code> the smallest element in <code>V[i,i+1,...,size-1]</code>. Here, we can do the same thing, but instead of the smallest, just use a random one. Also, you will need random numbers! Here’s how to get some:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource cpp numberLines"><code class="sourceCode cpp"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="pp">#include </span><span class="im">&lt;cstdlib&gt;</span></a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="pp">#include </span><span class="im">&lt;time.h&gt;</span></a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="dt">int</span> main() {</a>
+<a class="sourceLine" id="cb16-5" data-line-number="5">    <span class="co">// stuff...</span></a>
+<a class="sourceLine" id="cb16-6" data-line-number="6">    srand(time(<span class="dv">0</span>)); <span class="co">// use current time to determine pseudorandom sequence</span></a>
+<a class="sourceLine" id="cb16-7" data-line-number="7">    <span class="co">// print 10 random numbers:</span></a>
+<a class="sourceLine" id="cb16-8" data-line-number="8">    <span class="cf">for</span> (<span class="dt">int</span> i=<span class="dv">0</span>; i&lt;<span class="dv">10</span>; i++)</a>
+<a class="sourceLine" id="cb16-9" data-line-number="9">        cout &lt;&lt; rand() &lt;&lt; <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>;</a>
+<a class="sourceLine" id="cb16-10" data-line-number="10">}</a></code></pre></div>
+<p><strong>Non-option arguments:</strong> this program, unlike most of the others, can accept <em>non-option</em> command line arguments (e.g. when <code>-e</code> is supplied). It isn’t obvious how to get these things. Here’s one way to go:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource cpp numberLines"><code class="sourceCode cpp"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="co">// if you are storing the input in a vector V, try this:</span></a>
+<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="cf">while</span> (optind &lt; argc)</a>
+<a class="sourceLine" id="cb17-3" data-line-number="3">    V.push_back(argv[optind++]);</a>
+<a class="sourceLine" id="cb17-4" data-line-number="4"><span class="co">// note: the variable `optind` is supplied in the `&lt;getopt.h&gt;` header.</span></a></code></pre></div>
+<p><strong>A few more notes:</strong></p>
+<ol type="1">
+<li>Note that <code>rand()</code> gives pseudorandom numbers based on a seed, rather than actual random numbers. So each permutation will not really be equally likely, but that’s alright.</li>
+<li>Calling <code>rand()</code> gives you (pseudo)random integers in the range <code>[0,...,RAND_MAX]</code>. The upper bound there is probably a lot larger than the indexes you have into your vector. You can get random numbers in a different range by reducing modulo the desired upper bound.</li>
+<li>If you have time try to solve<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> and<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> at the end of the page.</li>
+</ol>
+<h3 id="sort-1">sort</h3>
+<p>There are a few strategies you could use for this. One way is to read the entirety of <code>stdin</code> into a vector of strings, and then sort the vector as we saw in class (or some other way if you want), and then use the flags on the command line to determine how you show the output. Other alternatives might be to use sets, multisets, or maps (storing each item with its multiplicity).</p>
+<h3 id="tr-1">tr</h3>
+<p><strong>General advice:</strong> I would recommend using either a <code>map</code> or a <code>vector</code> (of length 256) to store the translation of each input character. Once you have this map or vector set up, the rest should be a piece of cake! One word of caution if using a <code>vector</code> though: if you index elements with something of type <code>char</code>, note that characters higher than 127 are interpreted as negative numbers! Here’s one way to fix it:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource cpp numberLines"><code class="sourceCode cpp"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="dt">char</span> c;</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="co">// ... c gets a value somehow ...</span></a>
+<a class="sourceLine" id="cb18-3" data-line-number="3">cout &lt;&lt; V[(<span class="dt">unsigned</span> <span class="dt">char</span>)c]; <span class="co">// good :D</span></a>
+<a class="sourceLine" id="cb18-4" data-line-number="4">cout &lt;&lt; V[c]; <span class="co">// bad x_x  don&#39;t do this.</span></a></code></pre></div>
+<p><strong>Quick tests:</strong> if you need a quick way to see if your <code>tr</code> is working, maybe try something like this, which counts how many braces your <code>cpp</code> files have:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb19-1" data-line-number="1">$ <span class="fu">cat</span> *.cpp <span class="kw">|</span> <span class="ex">./tr</span> -c -d <span class="st">&quot;{}&quot;</span> <span class="kw">|</span> <span class="fu">wc</span> -c</a>
+<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="ex">186</span></a>
+<a class="sourceLine" id="cb19-3" data-line-number="3">$ <span class="fu">cat</span> *.cpp <span class="kw">|</span> <span class="fu">tr</span> -c -d <span class="st">&quot;{}&quot;</span> <span class="kw">|</span> <span class="fu">wc</span> -c</a>
+<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="ex">186</span></a>
+<a class="sourceLine" id="cb19-5" data-line-number="5"><span class="co"># or, see if the output is exactly the same:</span></a>
+<a class="sourceLine" id="cb19-6" data-line-number="6">$ <span class="ex">sha1sum</span> <span class="op">&lt;(</span><span class="fu">cat</span> *.cpp <span class="kw">|</span> <span class="ex">./tr</span> -c -d <span class="st">&quot;{}&quot;</span><span class="op">)</span> <span class="op">&lt;(</span><span class="fu">cat</span> *.cpp <span class="kw">|</span> <span class="fu">tr</span> -c -d <span class="st">&quot;{}&quot;</span><span class="op">)</span></a>
+<a class="sourceLine" id="cb19-7" data-line-number="7"><span class="ex">11c789382255fb752602f8a50bbd046401c75496</span>  /dev/fd/63</a>
+<a class="sourceLine" id="cb19-8" data-line-number="8"><span class="ex">11c789382255fb752602f8a50bbd046401c75496</span>  /dev/fd/62</a></code></pre></div>
+<p><strong>What <code>tr</code> actually does:</strong> The <code>tr</code> command has some subtleties. Here is some instructive output of the system’s <code>tr</code> command which might help you understand them:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb20-1" data-line-number="1">$ <span class="bu">echo</span> <span class="st">&quot;cba&quot;</span> <span class="kw">|</span> <span class="fu">tr</span> <span class="st">&quot;abc&quot;</span> <span class="st">&quot;def&quot;</span></a>
+<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="ex">fed</span></a>
+<a class="sourceLine" id="cb20-3" data-line-number="3">$ <span class="bu">echo</span> <span class="st">&quot;hello there&quot;</span> <span class="kw">|</span> <span class="fu">tr</span> <span class="st">&quot;el&quot;</span> <span class="st">&quot;ar&quot;</span></a>
+<a class="sourceLine" id="cb20-4" data-line-number="4"><span class="ex">harro</span> thara</a></code></pre></div>
+<p>One thing to watch out for is the <code>-c</code> option. Think of it this way: characters in the first set <strong>will be preserved</strong>, and all others will be translated. The tricky thing is that the translation table will start at character 0, and have a few “holes” for the characters that are to be preserved. An example:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb21-1" data-line-number="1">$ <span class="bu">echo</span> -e <span class="st">&quot;\x00hello there&quot;</span> <span class="kw">|</span> <span class="fu">tr</span> -c <span class="st">&#39;el\n&#39;</span> <span class="st">&#39;xyz&#39;</span></a>
+<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="ex">xzellzzzzeze</span></a></code></pre></div>
+<p>Notice how the 0 character <code>\x00</code> was translated to a <code>x</code>, which happens to be the first character of the second set. Now see if you can make sense of this one:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb22-1" data-line-number="1">$ <span class="bu">echo</span> -e <span class="st">&quot;\x00hello there&quot;</span> <span class="kw">|</span> <span class="fu">tr</span> -c <span class="st">&#39;el\n&#39;</span> <span class="st">&#39;A-Z0-9&#39;</span></a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="ex">A9ell9599e9e</span></a></code></pre></div>
+<p>The translation table is <code>A,B,C,...,Z,0,1,2,...,9</code>. The space character has ascii value 32. You might think that it should have been mapped to the item at index 32 in the table, but the careful observer will see that it actually mapped to 5, which is <em>index 31</em>. So what’s going on? The list of characters to be translated has some holes in it. In particular it is missing the newline, which would have been at index 10. This effectively moves space back one index to 31. Here’s a more complicated example:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb23-1" data-line-number="1">$ <span class="bu">echo</span> -e <span class="st">&quot;hello there&quot;</span> <span class="kw">|</span> <span class="fu">tr</span> -c <span class="st">&#39;el\n&#39;</span> <span class="st">&#39;\0-\377&#39;</span></a>
+<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="ex">felllqfeoe</span></a>
+<a class="sourceLine" id="cb23-3" data-line-number="3">$ <span class="bu">echo</span> -e <span class="st">&quot;hello there&quot;</span> <span class="kw">|</span> <span class="fu">tr</span> -c <span class="st">&#39;el\n&#39;</span> <span class="st">&#39;\0-\377&#39;</span> <span class="kw">|</span> <span class="ex">xxd</span></a>
+<a class="sourceLine" id="cb23-4" data-line-number="4"><span class="ex">00000000</span>: 6665 6c6c 6c1f 7166 656f 650a            felll.qfeoe.</a></code></pre></div>
+<p>The translation table is just all characters in order (ascii value 0 to 255). You can see that the space was translated to 31,<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> the ‘h’ was translated to ‘f’, which is <em>two</em> indexes behind, as there are now two holes in the input list, and ‘r’ mapped to ‘o’, which is 3 indexes behind, since the index of ‘r’ is after all three characters that we’re leaving out.</p>
+<!---}}-->
+<!---{{ Exercises-->
+<h2 id="a-few-exercises">A Few Exercises</h2>
+<p>Here are some things to try with the tools you just wrote.</p>
+<ul>
+<li>Count unique lines in a file (use <code>wc</code>, <code>sort</code>, <code>uniq</code>).</li>
+<li>Use your <code>tr,sort</code> and <code>uniq</code> to print a list of unique words. Note that your version of <code>wc</code> only counts the unique words and doesn’t have an option to print the list.</li>
+<li>Use your <code>tr</code> and <code>wc</code> to count how many semicolons are in all of your <code>cpp</code> files.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></li>
+</ul>
+<!---}}-->
+<!---{{ Submission Procedure-->
+<h2 id="submission-procedure">Submission Procedure</h2>
+<p>Your assignment will be graded by the TAs soon after the deadline, possibly during recitation (so you should be prepared to explain what you wrote!). For full credit, your project should</p>
+<ol type="1">
+<li>Pass the automated tests;</li>
+<li>Be hosted on bitbucket;</li>
+<li>Have non-trivial contributions from each team member (this should be reflected in the commit logs).</li>
+</ol>
+<!---}}-->
+<!---{{ links-->
+<!---}}-->
+<!---
+% vim:ff=unix:textwidth=78:foldmethod=marker:foldmarker={{,}}
+-->
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><strong>Exercise:</strong> even if <code>rand()</code> produced uniformly random numbers in <code>[0,...,RAND_MAX]</code> (rather than pseudorandom), I claim that for many values of <code>k</code>, <code>rand() % k</code> will not quite be uniform on the range <code>[0,...,k-1]</code>. See if you can figure out why, and figure out which values of <code>k</code> <em>would</em> give the uniform distribution. Lastly, try to <a href="https://en.wikipedia.org/wiki/Total_variation_distance_of_probability_measures">measure</a> how far from uniform this distribution is in terms of <code>RAND_MAX</code> and <code>k</code>.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p><strong>Exercise:</strong> under the (faulty) assumption that <code>rand() % k</code> produces the uniform distribution on <code>[0,...,k-1]</code>, try to prove that each permutation would be equally likely to be produced by your procedure.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>Note that character 31 is a non-printable control character, which is why it doesn’t show up in the first output, but after running it through <code>xxd</code>, we can see the character there in hex (it’s the byte <code>1f</code>).<a href="#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>For reference, I got away with 186. The project skeleton had 120.<a href="#fnref4" class="footnote-back">↩</a></p></li>
+</ol>
+</section>
+</body>
+</html>
