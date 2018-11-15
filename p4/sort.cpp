@@ -1,14 +1,22 @@
 #include <cstdio>
 #include <getopt.h> // to parse long arguments.
+#include <vector>
+using std::vector;
 #include <string>
 using std::string;
 #include <iostream>
 using std::cin;
 using std::cout;
+using std::endl;
 #include <set>
 using std::set;
 using std::multiset;
 #include <strings.h>
+#include <algorithm>
+using std::swap;
+using std::sort;
+#include <fstream>
+using namespace std;
 
 static const char* usage =
 "Usage: %s [OPTIONS]...\n"
@@ -25,6 +33,39 @@ struct igncaseComp {
 };
 /* NOTE: set<string,igncaseComp> S; would declare a set S which
  * does its sorting in a case-insensitive way! */
+
+void rundescending(vector<string> &values) //function for reverse
+{
+	sort(values.begin(), values.end());
+	for (size_t i=0; i < values.size()/2; i++)
+	{
+		swap(values[i], values[values.size()-1-i]);
+	}
+}
+
+void nodups(vector<string> &values) //function for unique
+{
+	set<string> s;
+	vector<string> k;
+	for (vector<string>::iterator i = values.begin(); i != values.end(); i++)
+	{
+		s.insert(*i);
+	}
+	for (set<string>::iterator i = s.begin(); i != s.end(); i++)
+	{
+		k.push_back(*i);
+	}
+	values = k;
+}
+
+void nosens(vector<string> &values) //function for ignorecase
+{
+	sort(values.begin(), values.end(), igncaseComp());
+}
+
+/* The issue I had is resolved. However, there are still 4 errors remaining when I do the random tests
+Try: echo "this is a test" | ./sort
+*/
 
 int main(int argc, char *argv[]) {
 	// define long options
@@ -60,6 +101,97 @@ int main(int argc, char *argv[]) {
 	}
 
 	/* TODO: write me... */
+
+	#if 1
+	vector<string> values;
+	string x;
+	while (getline(cin,x))
+	{
+		values.push_back(x);
+	}
+	cin.clear();
+	#else
+	string line;
+	vector<string> values;
+	ifstream f ("file");
+	while (getline(f,line))
+	{
+		values.push_back(line);
+	}
+	#endif
+	if (descending)
+	{
+		rundescending(values);
+		if (ignorecase)
+		{
+			nosens(values);
+			if (unique)
+			{
+				nodups(values);
+			}
+		}
+		else if (unique)
+		{
+			nodups(values);
+			if (ignorecase)
+			{
+				nosens(values);
+			}
+		}
+	}
+
+	else if (ignorecase)
+	{
+		nosens(values);
+		if (descending)
+		{
+			rundescending(values);
+			if (unique)
+			{
+				nodups(values);
+			}
+		}
+		else if (unique)
+		{
+			nodups(values);
+			if (descending)
+			{
+				rundescending(values);
+			}
+		}
+	}
+
+	else if (unique)
+	{
+		nodups (values);
+		if (descending)
+		{
+			rundescending (values);
+			if (ignorecase)
+			{
+				nosens (values);
+			}
+		}
+
+		else if (ignorecase)
+		{
+			nosens (values);
+			if (descending)
+			{
+				rundescending (values);
+			}
+		}
+	}
+
+	else
+	{
+		sort(values.begin(), values.end());
+	}
+
+	for (vector<string>::iterator i = values.begin(); i != values.end(); i++)
+	{
+		cout << *i << "\n";
+	}
 
 	return 0;
 }
