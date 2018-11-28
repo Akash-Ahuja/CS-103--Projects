@@ -10,7 +10,7 @@ CC       := gcc
 CXX      := g++
 LD       := $(CXX)
 LDFLAGS  := $(LDFLAGS)  # -L/path/to/libs/
-LDADD    :=  -lSDL2 -lGL -lGLU # -lSDL2_image
+LDADD    :=  -lSDL2 -lGL
 INCLUDE  :=  # -I../path/to/headers/
 DEFS     :=  # -DLINUX
 
