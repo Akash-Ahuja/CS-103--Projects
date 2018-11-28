@@ -1,7 +1,6 @@
 #define GL_GLEXT_PROTOTYPES
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
-#include <GL/glu.h>
 #include <stdio.h>
 #include <getopt.h>
 #include <cstdlib>   /* for atexit() */
@@ -214,7 +213,7 @@ bool initGL()
 
 	error = glGetError();
 	if(error != GL_NO_ERROR) {
-		printf("initGL failed: %s\n", gluErrorString(error));
+		printf("initGL failed.\n");
 		return false;
 	}
 	/* reset mode to modelview for subsequent transformations. */
