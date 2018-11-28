@@ -185,7 +185,7 @@ bool init()
 	/* setup frame-sync'd drawing with openGL: */
 	if(SDL_GL_SetSwapInterval(1) < 0) {
 		printf("openGL vsync fail x_x error: %s\n",SDL_GetError());
-		return false;
+		// return false;
 	}
 	if(!initGL()) {
 		printf("openGL init fail x_x error: %s\n",SDL_GetError());
