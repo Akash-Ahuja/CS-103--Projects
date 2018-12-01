@@ -6,12 +6,9 @@
 #include <cstdlib>   /* for atexit() */
 #include <cmath>     /* sin(x),cos(x) */
 #include <time.h>    /* for time() */
-#include <algorithm>
-using std::min;
-using std::max;
-using std::swap;
 #include <deque>
 using std::deque;
+#include "mengerfy.h"
 
 static const char* usage =
 "Usage: %s [OPTIONS...]\n\n"
@@ -46,15 +43,6 @@ const double cz = -1.7;
 const double r = 0.5;
 
 double faces[6][4][3]; /* used for drawing; you can ignore it. */
-
-/* store coordinates of center, along with the "radius".
- * see the readme for details. */
-struct cube {
-	double x,y,z,r;
-	cube(double x0, double y0, double z0, double r0) :
-		x(x0),y(y0),z(z0),r(r0) {};
-	cube():x(0),y(0),z(-1.7),r(0.5) {};
-};
 
 deque<cube> M(1,cube(cx,cy,cz,r));
 /* NOTE: M is where the cubes live on which you need to apply the
@@ -185,7 +173,6 @@ bool init()
 	/* setup frame-sync'd drawing with openGL: */
 	if(SDL_GL_SetSwapInterval(1) < 0) {
 		printf("openGL vsync fail x_x error: %s\n",SDL_GetError());
-		// return false;
 	}
 	if(!initGL()) {
 		printf("openGL init fail x_x error: %s\n",SDL_GetError());
@@ -371,8 +358,8 @@ int main(int argc, char *argv[])
 			case 'r':
 				use_rand = true;
 				srand(time(0));
-				m = rand() % (1<<27);
-				fprintf(stderr, "rendering random mode (%i)\n",m);
+				// m = rand() % (1<<27);
+				// fprintf(stderr, "rendering random mode (%i)\n",m);
 				break;
 			case '?':
 				printf(usage,argv[0]);
@@ -380,7 +367,8 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	/* TODO: apply the transformation to the global deque M of cubes. */
+	/* apply the transformation to the global deque M of cubes: */
+	mengerfy(M,m,d,use_rand);
 
 	printf("num cubes = %lu\n",M.size());
 	/* start SDL; create window; setup openGL + polygons */

@@ -253,18 +253,22 @@ Notes to self:
 <!---{{ Details-->
 <h2 id="details">Details</h2>
 <h3 id="tldr">TL;DR</h3>
-<p>You are given a <code>deque</code> called <code>M</code> which initially contains a single cube. Your only job is to apply the specified transformation, repeatedly replacing each cube in <code>M</code> with the specified subset of sub-cubes. The skeleton will do the work of drawing those cubes. I’ll leave the organization up to you. More details follow.</p>
+<p>Write the <code>mengerfy</code> function (see <code>mengerfy.{h,cpp}</code>). This function will be given a <code>deque</code> which initially contains a single cube. Your only job is to apply the specified transformation, repeatedly replacing each cube in <code>M</code> with the specified subset of sub-cubes. This function will be called in <code>menger.cpp</code>, which will then draw the cubes you provided. More details follow.</p>
 <h3 id="storing-and-modulating-the-shapes">Storing and modulating the shapes</h3>
 <p>First note that everything is made of subdividing cubes into smaller cubes. So each of our pictures will be composed of…cubes. Next, note that all the cubes are “aligned”, in the sense that each one has a face parallel to a face of each other cube. So, rather than giving coordinates for all the corners, we can instead fix some axes to which all cubes are aligned, and specify only coordinates for the <em>center</em> and a scalar for the <em>radius</em> (by this, we mean half the width of a face, by analogy to a circle or sphere). That is, each tuple <span class="math inline">(<em>x</em>, <em>y</em>, <em>z</em>, <em>r</em>)</span> specifies a cube that we might be interested in. In C++, we can use a <code>struct</code> like the following to store such values:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">struct</span> cube {</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">    <span class="dt">double</span> x,y,z,r;</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3">    <span class="co">// ...</span></a>
 <a class="sourceLine" id="cb1-4" data-line-number="4">};</a></code></pre></div>
-<p>Now let’s imagine how the transformation goes: we begin with a single cube, divide it into 27 sub-cubes, and then choose some subset of these to keep for the next generation. Now we do the same to <em>every sub-cube</em> that we kept, and so on. So, how many modulations are there in total? Well, each one is defined by a subset of the 27 sub-cubes, which leaves us with the not so nice number, <span class="math inline">2<sup>27</sup> = 134217728</span>. But a lot of these would be strange looking, as they would lack the symmetry of the examples given above. While I <strong>absolutely encourage you to make strange drawings</strong>, let’s focus on a simple subset of these modulations that are highly symmetric for the official project requirements. For this, notice that we can assign each sub-cube an integer in the set <span class="math inline">{0, 1, 2, 3}</span>, based on the square of its distance from the center of the original cube (measuring center to center, and assuming unit side length). Here are all sub-cubes of (squared) distances 0 through 3:</p>
+<p>Now let’s imagine how the transformation goes: we begin with a single cube, divide it into 27 sub-cubes, and then choose some subset of these to keep for the next generation. Now we do the same to <em>every sub-cube</em> that we kept, and so on. So, how many modulations are there in total? Well, each one is defined by a subset of the 27 sub-cubes, which leaves us with <span class="math inline">2<sup>27</sup> = 134217728</span> possibilities. But a lot of these would be strange looking, as they would lack the symmetry of the examples given above.</p>
+<figure>
+<img src="images/fig4.jpg" alt="Fig. 1: Random Menger-like fractal." /><figcaption>Fig. 1: Random Menger-like fractal.</figcaption>
+</figure>
+<p>While I <strong>absolutely encourage you to make strange drawings</strong>, let’s focus on a simple subset of these modulations that are highly symmetric for the official project requirements. For this, notice that we can assign each sub-cube an integer in the set <span class="math inline">{0, 1, 2, 3}</span>, based on the square of its distance from the center of the original cube (measuring center to center, and assuming unit side length). Here are all sub-cubes of (squared) distances 0 through 3:</p>
 <p><img src="images/d0.jpg" alt="distance 0" /><img src="images/d1.jpg" alt="distance 1" /> <img src="images/d2.jpg" alt="distance 2" /><img src="images/d3.jpg" alt="distance 3" /></p>
-<p>Taking this one (exponential!) step further, we could use as our sub-cubes, any <em>combination</em> of these groups. This would leave us with <span class="math inline">2<sup>4</sup> = 16</span> different modulations, which is a lot more tolerable. I would like for your program to accept an integer from 0 to 15, which should determine which modulation to draw.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<p>Taking this one (exponential!) step further, we could use as our sub-cubes any <em>combination</em> of these groups. This leaves us with <span class="math inline">2<sup>4</sup> = 16</span> different modulations. I would like for your program to accept an integer from 0 to 15, which should determine which modulation to draw.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
 <h3 id="storing-your-cubes">Storing your cubes</h3>
-<p>Any of a number of data structures would work just fine, but I thought this was a good opportunity to introduce you to the lovely <code>deque</code>. Why use a <code>deque</code>? Well, they do a lot of things pretty well: you can efficiently add and remove items from <em>both</em> ends which may be useful for applying the transformation, and you can also perform <em>random access</em> (e.g., <code>M[i]</code> gives you the <code>i</code>-th element) which can be useful for drawing.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> A quick summary of the functions you’ll need:</p>
+<p>Any of a number of data structures would work just fine, but I thought this was a good opportunity to introduce you to the lovely <code>deque</code>. Why use a <code>deque</code>? Well, they do a lot of things pretty well: you can efficiently add and remove items from <em>both</em> ends which may be useful for applying the transformation, and you can also perform <em>random access</em> (e.g., <code>M[i]</code> gives you the <code>i</code>-th element) which can be useful for drawing.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> Here’s a quick summary of the functions you’ll need to write the <code>mengerfy</code> function:</p>
 <ul>
 <li><code>size()</code> which gives you the total number of elements</li>
 <li><code>front()</code> which gives you the element at the “front”</li>
@@ -280,11 +284,18 @@ Notes to self:
 <a class="sourceLine" id="cb2-5" data-line-number="5">  -m,--mode  [NUM]  0&lt;=NUM&lt;16 describes the subset of subcubes to draw.</a>
 <a class="sourceLine" id="cb2-6" data-line-number="6">  -r,--random       draw a random (likely asymmetric) modulation.</a>
 <a class="sourceLine" id="cb2-7" data-line-number="7">  -F,--full         show window fullscreen</a></code></pre></div>
-<p>The only two you have to worry about are <code>-d</code> and <code>-m</code>. The first just tells you how many times to apply the subdividing transformation. The second will require more thought: see if you can think of a clever way to map each integer from 0 to 15 to a subset of a set of 4 elements. Maybe recall the various ways we described in lecture to represent a set. Also, maybe familiarize yourself with the <em>bitwise</em> operators <code>&lt;&lt;</code> and <code>&amp;</code> on integers. Implementing the <code>-r</code> option isn’t required, but if you want to, try to draw a <em>random modulation</em> of this fractal (out of the <span class="math inline">2<sup>27</sup></span> possibilities).</p>
+<p>The <code>-F</code> option is handled for you, so you only need to worry about <code>-d</code>, <code>-m</code> and <code>-r</code>. The first just tells you how many times to apply the subdividing transformation. The second will require more thought: see if you can think of a clever way to map each integer from 0 to 15 to a subset of a set of 4 elements. Maybe recall the various ways we described in lecture to represent a set. Also, maybe familiarize yourself with the <em>bitwise</em> operators <code>&lt;&lt;</code> and <code>&amp;</code> on integers. For <code>-r</code>, just draw a <em>random modulation</em> of this fractal (out of the <span class="math inline">16</span> possibilities, or if you are feeling ambitious, pick a random fractal from all <span class="math inline">2<sup>27</sup></span> possibilities).</p>
 <h3 id="building-the-project">Building the Project</h3>
 <p>It should be easy: just run <code>make</code>. If you are trying this somewhere other than in the virtual machine, make sure you have <a href="https://en.wikipedia.org/wiki/Simple_DirectMedia_Layer">SDL2</a> and <a href="https://en.wikipedia.org/wiki/Opengl">OpenGL</a> installed on the system (along with all of their header files).</p>
 <h3 id="testing">Testing</h3>
 <p>Run it and see what happens :D</p>
+<h3 id="performance-issues">Performance issues</h3>
+<p>If the program seems to run slowly on your computer, it is probably due to the virtual machine not properly utilizing your graphics hardware (also my OpenGL code is not very good). There are two important things you can do to help:</p>
+<ol type="1">
+<li>Reduce the number of iterations with <code>-d</code>, like this: <code>./menger -d2</code>. (The number of polygons your computer has to draw increases exponentially in this parameter.)</li>
+<li>Turn off the lighting: just comment out the line of <code>menger.cpp</code> that says <code>#define USELIGHT 1</code>.</li>
+</ol>
+<p>If even that isn’t enough, you could also turn off the compositor (the thing that is making your windows transparent). For this, run <code>pkill -x compton</code>. To turn it back on, just run <code>compton --config ~/.config/compton.conf -b</code>. (There are also notes in the virtual machine instructions about this.)</p>
 <h3 id="graphical-user-interfaces">Graphical User Interfaces</h3>
 <p>We’ll make use of the libraries <a href="https://en.wikipedia.org/wiki/Opengl">OpenGL</a> and <a href="https://en.wikipedia.org/wiki/Simple_DirectMedia_Layer">SDL2</a> to make a graphical interface. OpenGL takes care of the low level graphics calls, while SDL2 provides a nice wrapper, making windowing and responding to user input events easy. To complete the basic project, you don’t have to understand this very well, but you should at least know what these libraries are doing for you.</p>
 <p><em>Note:</em> unlike our past projects, you will have to take a little more of this one on faith. We don’t have enough time to cover OpenGL in the depth required for you to write something from scratch, but hopefully you can still have some fun with graphics, even without understanding all of the details. There are some links <a href="#graphics-references">below</a> if you do want to dig deeper into OpenGL and SDL.</p>
@@ -298,7 +309,7 @@ Notes to self:
 <ol type="1">
 <li>Try out different color schemes.</li>
 <li>I used a magic light source at the very center of the cube.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> See if you can figure out how to place the light source somewhere else.</li>
-<li>Don’t use the <code>deque</code> from the standard template library, and instead make your own from scratch, based on a linked list.</li>
+<li>Don’t use the <code>deque</code> from the standard template library, and instead make your own from scratch.</li>
 <li>Try to understand exactly what the skeleton does, to the point where you could write something similar on your own, without constantly referring back to this example.</li>
 <li>Implement mouse controls, so you can rotate the cube by dragging (turn off the automatic rotation for this).</li>
 <li>Draw similar shapes, based on <a href="https://en.wikipedia.org/wiki/Sierpinski_triangle">dissecting tetrahedra</a>.</li>
@@ -329,7 +340,7 @@ Notes to self:
 <!---}}-->
 <!---{{ Submission proc-->
 <h2 id="submission-procedure">Submission Procedure</h2>
-<p>Just turn in <code>menger.cpp</code> using the usual <a href="https://www-cs.ccny.cuny.edu/~wes/CSC103/upload.html">submission page</a>. Remember to save your receipt.</p>
+<p>Just turn in <code>mengerfy.cpp</code> using the usual <a href="https://www-cs.ccny.cuny.edu/~wes/CSC103/upload.html">submission page</a>. Remember to save your receipt.</p>
 <!---}}-->
 <!---{{ Links-->
 <!---}}-->
@@ -340,9 +351,9 @@ Notes to self:
 <hr />
 <ol>
 <li id="fn1"><p>The Cantor set is defined to be the limit of this process (what remains after applying the transformation an infinite number of times), but we will stop after only a few iterations.<a href="#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>A few of these aren’t very interesting, e.g., one gives you nothing, others give just a (sub-)cube, and some configurations are (visually) redundant. But I would still like for your program to draw each variation.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>A few of these aren’t very interesting, e.g., one gives you nothing, others give just a (sub-)cube, and some configurations are (visually) redundant.<a href="#fnref2" class="footnote-back">↩</a></p></li>
 <li id="fn3"><p>The random access isn’t really necessary as long as we can iterate through the structure (and in fact random access a feature of the STL’s particular implementation), but…<code>deque</code>s are cool, so that’s what I’m recommending.<a href="#fnref3" class="footnote-back">↩</a></p></li>
-<li id="fn4"><p>It’s “magic”, in that you can only see it if it scatters off of a surface, but not directly.<a href="#fnref4" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>It’s “magic”, in that you can only see it if it scatters off of a surface, but not directly. The faces are also a little magical, as the light passes through them in <em>one</em> direction, and scatters in the other.<a href="#fnref4" class="footnote-back">↩</a></p></li>
 </ol>
 </section>
 </body>
