@@ -10,12 +10,52 @@
  *
  */
 
-#include <iostream>
-using std::cin;
-using std::cout;
-using std::endl;
+   #include <iostream>
+   using std::cin;
+   using std::cout;
+   using std::endl;
+   using namespace std;
+   #include <cmath>
 
-int main()
-{
+   int main()
+
+   {
+       unsigned long a;
+
+
+
+   while (cin >> a) {
+
+      for (int x = 3; x > 3 ; x = x + 2) {
+         if (a % x != 0) {
+         cout << true << "\n";
+
+         }
+      }
+
+
+     if( a == 0) {
+      cout << false << "\n";
+      }
+
+      else if (a < 2) {
+      cout << false << "\n";
+      }
+
+      else if (a == 2) {
+      cout << true << "\n";
+      }
+
+      else if (a / a == 1 && a % 2 != 0) {
+      cout << true << "\n";
+      }
+
+      else if (a % 2 == 0) {
+      cout << false << "\n";
+      }
+
+
+    }
+
 	return 0;
-}
+    }

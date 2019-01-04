@@ -38,7 +38,7 @@ string initfilename = "/tmp/gol-world-current"; /* read initial state from here.
 /* see the hints section of the readme: to get the basics working,
  * uncomment this next line, and you'll have a suitable test vector
  * to which you can apply the rules. */
-#define WARMUP 1
+// #define WARMUP 1
 
 #ifdef WARMUP
 vector<vector<bool> > world = {

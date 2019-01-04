@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="" />
+  <title>103 Project 6: Menger Cube (and friends!)</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  
+  <style type="text/css">
+  body 
+  {
+  	font-family:Gill Sans MT;
+  	color:#657b83;
+  	background-color:#fdf6e3;
+  	max-width:500pt;
+  	padding-left:25pt;
+  	padding-right:25pt;
+  	padding-bottom:20pt;
+  	margin:0 auto 0 auto;
+  	text-align:justify;
+  }
+  a:link {color:#6c71c4;}
+  a:visited {color:#859900;}
+  a:hover {color:#268bd2;}
+  a:active {color:#d33682;}
+  h1{}
+  h2{border-style:solid;
+   text-align:center;
+  }
+  h3
+  {
+  	margin-bottom:2pt;
+  	/*color:#268bd2;*/
+  	font-weight:bold;
+  }
+  strong
+  {
+  	color:#d33682;
+  	font-weight:bolder;
+  }
+  em
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  	font-weight:bolder;
+  }
+  code
+  {
+      background-color:#eee8d5;
+      color:#586e75;
+  }
+  table.sourceCode
+  {
+      background-color:#eee8d5;
+      color:#586e75;
+  }
+  pre.sourceCode
+  {
+      background-color:#eee8d5;
+      color:#586e75;
+  }
+  .math
+  {
+      /*background-color:#eee8d5;*/
+      color:#586e75;
+      font-family:Times New Roman;
+  }
+  /*use a contextual style to undo the blue-ness:*/
+  .math em
+  {
+      color:#586e75;
+  	font-weight:normal;
+  }
+  .descrip
+  {
+  	max-width:500pt;
+  	padding-left:25pt;
+  	text-align:justify;
+  }
+  .descripbig
+  {
+  	max-width:575pt;
+  	padding-left:0pt;
+  	text-align:justify;
+  }
+  .emph
+  {
+  	color:#d33682;
+  	font-weight:bolder;
+  }
+  .litem
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  	font-weight:bolder;
+  }
+  .hl
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  }
+  .required
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  	font-weight:bold;
+  }
+  .inputbox
+  {
+  	background-color:#eee8d5;
+  	color:#586e75;
+  	font-family:Gill Sans MT;
+  	font-weight:bolder;
+  }
+  </style>
+</head>
+<body>
+<header>
+<h1 class="title">103 Project 6: Menger Cube (and friends!)</h1>
+<p class="author"></p>
+</header>
+<h3 id="due-wednesday-december-12th-1159pm"><em>Due:</em> Wednesday, December 12th @ 11:59pm</h3>
+<!---{{ Synopsis-->
+<h2 id="synopsis">Synopsis</h2>
+<p>Write a program that draws the <a href="https://en.wikipedia.org/wiki/Menger_cube">Menger cube</a> and similar fractals.</p>
+<p>Here are a few things you’ll get out of this project:</p>
+<ul>
+<li>Learning a new data structure, the <em>deque</em></li>
+<li>Learning a little about <a href="https://en.wikipedia.org/wiki/Opengl">OpenGL</a> and <a href="https://en.wikipedia.org/wiki/Simple_DirectMedia_Layer">SDL2</a></li>
+<li>Practice making our own types</li>
+<li>Tricks with bitwise operators</li>
+<li>Fun (???)</li>
+</ul>
+<!---{{
+Notes to self:
+
+* Mention antenna design.  https://en.wikipedia.org/wiki/Fractal_antenna
+* Perhaps try some 2 dimensional constructions if time permits.  Ideas:
+    - https://en.wikipedia.org/wiki/Sierpinski_curve
+    - https://en.wikipedia.org/wiki/File:Phi_glito.png
+    - https://en.wikipedia.org/wiki/Koch_snowflake
+    - https://en.wikipedia.org/wiki/Sierpinski_triangle
+    - https://en.wikipedia.org/wiki/N-flake#Hexaflake
+    - https://en.wikipedia.org/wiki/Sierpinski_carpet
+--}}-->
+<figure>
+<img src="images/fig1.jpg" alt="Fig. 1: Menger Cube, as rendered by the project’s code." /><figcaption>Fig. 1: <em>Menger Cube</em>, as rendered by the project’s code.</figcaption>
+</figure>
+<h3 id="suggested-reading">Suggested Reading</h3>
+<ul>
+<li>At least browse the pictures in this article on <a href="https://en.wikipedia.org/wiki/Cantor_set">Cantor sets</a>.</li>
+<li>We will make the most basic usage of <code>struct</code> to create our own types. Perhaps review <a href="http://www.charlesli.org/pic10a/lectures/lecture17/index.html">Charles Li’s notes on structures</a> if needed.</li>
+<li>Chapter 25 of the book covers graphical user interfaces, but I don’t think it will prove all that helpful here.</li>
+<li>If you roll your own data structures (instead of using the STL <code>deque</code>), lecture 4 on dynamic memory and linked lists could be useful.</li>
+</ul>
+<h3 id="important-notes-on-grading">Important Notes on Grading</h3>
+<p>As always,</p>
+<ul>
+<li>Code that does not compile will receive a 0.</li>
+<li>Files that are not properly named will receive a 0. (See the section below on “what to submit.”)</li>
+</ul>
+<!---}}-->
+<!---{{ intro-->
+<h2 id="introduction">Introduction</h2>
+<p>The essential idea of the construction is that of a <a href="https://en.wikipedia.org/wiki/Cantor_set">Cantor set</a>. In one dimension, the Cantor set is constructed by removing the middle third of an interval, and then applying the same transformation recursively to <em>each subinterval</em>.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Taking Cartesian products of these sets, we would (after two iterations) actually wind up with something like this:</p>
+<figure>
+<img src="images/fig2.jpg" alt="Fig. 2: 2 iterations toward 3-dimensional “Cantor Dust”." /><figcaption>Fig. 2: 2 iterations toward 3-dimensional “Cantor Dust”.</figcaption>
+</figure>
+<p>However, by leveraging the extra flexibility we have in three dimensions, we can draw other cool shapes by taking different (symmetric) subsets at each step. For example, by keeping all sub-cubes with center a distance square root of <span class="math inline">2</span> from the center of the original (assuming unit side length), we get this thing:</p>
+<figure>
+<img src="images/fig3.jpg" alt="Fig. 3: A Snowflake???" /><figcaption>Fig. 3: A Snowflake???</figcaption>
+</figure>
+<p>In this project, you’ll write something that draws just about all “sensible” modulations of this theme (in particular, those which will still have all symmetries of the original cube). If you are panicking right now because this looks too complicated, fear not:</p>
+<ol type="1">
+<li>There is a fancy graphics library (<a href="https://en.wikipedia.org/wiki/Opengl">OpenGL</a>) that greatly facilitates putting pixels on the screen.</li>
+<li>I did most of the work for you this time, haha.</li>
+</ol>
+<p>The main thing I want you to do is to produce a data structure containing the <em>geometry</em> of these objects. The skeleton code takes care of most of the subtleties of actually drawing that geometry (while rotating the scene, applying lighting, etc.). Note that implicit in this task is figuring out a nice way to write something that “modulates” the shape you get (including all the examples shown in the figures). I’ll elaborate on these modulations in the next section.</p>
+<!---}}-->
+<!---{{ Details-->
+<h2 id="details">Details</h2>
+<h3 id="tldr">TL;DR</h3>
+<p>Write the <code>mengerfy</code> function (see <code>mengerfy.{h,cpp}</code>). This function will be given a <code>deque</code> which initially contains a single cube. Your only job is to apply the specified transformation, repeatedly replacing each cube in <code>M</code> with the specified subset of sub-cubes. This function will be called in <code>menger.cpp</code>, which will then draw the cubes you provided. More details follow.</p>
+<h3 id="storing-and-modulating-the-shapes">Storing and modulating the shapes</h3>
+<p>First note that everything is made of subdividing cubes into smaller cubes. So each of our pictures will be composed of…cubes. Next, note that all the cubes are “aligned”, in the sense that each one has a face parallel to a face of each other cube. So, rather than giving coordinates for all the corners, we can instead fix some axes to which all cubes are aligned, and specify only coordinates for the <em>center</em> and a scalar for the <em>radius</em> (by this, we mean half the width of a face, by analogy to a circle or sphere). That is, each tuple <span class="math inline">(<em>x</em>, <em>y</em>, <em>z</em>, <em>r</em>)</span> specifies a cube that we might be interested in. In C++, we can use a <code>struct</code> like the following to store such values:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">struct</span> cube {</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">    <span class="dt">double</span> x,y,z,r;</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">    <span class="co">// ...</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">};</a></code></pre></div>
+<p>Now let’s imagine how the transformation goes: we begin with a single cube, divide it into 27 sub-cubes, and then choose some subset of these to keep for the next generation. Now we do the same to <em>every sub-cube</em> that we kept, and so on. So, how many modulations are there in total? Well, each one is defined by a subset of the 27 sub-cubes, which leaves us with <span class="math inline">2<sup>27</sup> = 134217728</span> possibilities. But a lot of these would be strange looking, as they would lack the symmetry of the examples given above.</p>
+<figure>
+<img src="images/fig4.jpg" alt="Fig. 1: Random Menger-like fractal." /><figcaption>Fig. 1: Random Menger-like fractal.</figcaption>
+</figure>
+<p>While I <strong>absolutely encourage you to make strange drawings</strong>, let’s focus on a simple subset of these modulations that are highly symmetric for the official project requirements. For this, notice that we can assign each sub-cube an integer in the set <span class="math inline">{0, 1, 2, 3}</span>, based on the square of its distance from the center of the original cube (measuring center to center, and assuming unit side length). Here are all sub-cubes of (squared) distances 0 through 3:</p>
+<p><img src="images/d0.jpg" alt="distance 0" /><img src="images/d1.jpg" alt="distance 1" /> <img src="images/d2.jpg" alt="distance 2" /><img src="images/d3.jpg" alt="distance 3" /></p>
+<p>Taking this one (exponential!) step further, we could use as our sub-cubes any <em>combination</em> of these groups. This leaves us with <span class="math inline">2<sup>4</sup> = 16</span> different modulations. I would like for your program to accept an integer from 0 to 15, which should determine which modulation to draw.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<h3 id="storing-your-cubes">Storing your cubes</h3>
+<p>Any of a number of data structures would work just fine, but I thought this was a good opportunity to introduce you to the lovely <code>deque</code>. Why use a <code>deque</code>? Well, they do a lot of things pretty well: you can efficiently add and remove items from <em>both</em> ends which may be useful for applying the transformation, and you can also perform <em>random access</em> (e.g., <code>M[i]</code> gives you the <code>i</code>-th element) which can be useful for drawing.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> Here’s a quick summary of the functions you’ll need to write the <code>mengerfy</code> function:</p>
+<ul>
+<li><code>size()</code> which gives you the total number of elements</li>
+<li><code>front()</code> which gives you the element at the “front”</li>
+<li><code>pop_front()</code> which removes the front element</li>
+<li><code>push_back(c)</code> which adds <code>c</code> to the back of the <code>deque</code></li>
+</ul>
+<h3 id="command-line-arguments">Command line arguments</h3>
+<p>The skeleton is set up to accept a few options and arguments, summarized here by its usage string:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode latex"><code class="sourceCode latex"><a class="sourceLine" id="cb2-1" data-line-number="1">Usage: ./menger [OPTIONS...]</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">Make cool configurations of pixels on your screen.  Options:</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">  -d,--depth [NUM]  recurse NUM times (default=3, 4 melts your computer)</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">  -m,--mode  [NUM]  0&lt;=NUM&lt;16 describes the subset of subcubes to draw.</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">  -r,--random       draw a random (likely asymmetric) modulation.</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">  -F,--full         show window fullscreen</a></code></pre></div>
+<p>The <code>-F</code> option is handled for you, so you only need to worry about <code>-d</code>, <code>-m</code> and <code>-r</code>. The first just tells you how many times to apply the subdividing transformation. The second will require more thought: see if you can think of a clever way to map each integer from 0 to 15 to a subset of a set of 4 elements. Maybe recall the various ways we described in lecture to represent a set. Also, maybe familiarize yourself with the <em>bitwise</em> operators <code>&lt;&lt;</code> and <code>&amp;</code> on integers. For <code>-r</code>, just draw a <em>random modulation</em> of this fractal (out of the <span class="math inline">16</span> possibilities, or if you are feeling ambitious, pick a random fractal from all <span class="math inline">2<sup>27</sup></span> possibilities).</p>
+<h3 id="building-the-project">Building the Project</h3>
+<p>It should be easy: just run <code>make</code>. If you are trying this somewhere other than in the virtual machine, make sure you have <a href="https://en.wikipedia.org/wiki/Simple_DirectMedia_Layer">SDL2</a> and <a href="https://en.wikipedia.org/wiki/Opengl">OpenGL</a> installed on the system (along with all of their header files).</p>
+<h3 id="testing">Testing</h3>
+<p>Run it and see what happens :D</p>
+<h3 id="performance-issues">Performance issues</h3>
+<p>If the program seems to run slowly on your computer, it is probably due to the virtual machine not properly utilizing your graphics hardware (also my OpenGL code is not very good). There are two important things you can do to help:</p>
+<ol type="1">
+<li>Reduce the number of iterations with <code>-d</code>, like this: <code>./menger -d2</code>. (The number of polygons your computer has to draw increases exponentially in this parameter.)</li>
+<li>Turn off the lighting: just comment out the line of <code>menger.cpp</code> that says <code>#define USELIGHT 1</code>.</li>
+</ol>
+<p>If even that isn’t enough, you could also turn off the compositor (the thing that is making your windows transparent). For this, run <code>pkill -x compton</code>. To turn it back on, just run <code>compton --config ~/.config/compton.conf -b</code>. (There are also notes in the virtual machine instructions about this.)</p>
+<h3 id="graphical-user-interfaces">Graphical User Interfaces</h3>
+<p>We’ll make use of the libraries <a href="https://en.wikipedia.org/wiki/Opengl">OpenGL</a> and <a href="https://en.wikipedia.org/wiki/Simple_DirectMedia_Layer">SDL2</a> to make a graphical interface. OpenGL takes care of the low level graphics calls, while SDL2 provides a nice wrapper, making windowing and responding to user input events easy. To complete the basic project, you don’t have to understand this very well, but you should at least know what these libraries are doing for you.</p>
+<p><em>Note:</em> unlike our past projects, you will have to take a little more of this one on faith. We don’t have enough time to cover OpenGL in the depth required for you to write something from scratch, but hopefully you can still have some fun with graphics, even without understanding all of the details. There are some links <a href="#graphics-references">below</a> if you do want to dig deeper into OpenGL and SDL.</p>
+<p><strong>Disclaimer:</strong> I don’t do a lot of graphics programming, so my examples probably aren’t the best to learn from. If you want to learn about <em>modern</em> OpenGL, maybe talk to one of or department’s graphics and visualization specialists!</p>
+<!---}}-->
+<!---{{ Hints-->
+<!---}}-->
+<!---{{ Feeling bored?-->
+<h2 id="feeling-bored">Feeling Bored?</h2>
+<p>If you have the project done ahead of time, there are tons of ways you can make improvements. Here’s a quick list of things that come to mind, approximately in ascending order of difficulty.</p>
+<ol type="1">
+<li>Try out different color schemes.</li>
+<li>I used a magic light source at the very center of the cube.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> See if you can figure out how to place the light source somewhere else.</li>
+<li>Don’t use the <code>deque</code> from the standard template library, and instead make your own from scratch.</li>
+<li>Try to understand exactly what the skeleton does, to the point where you could write something similar on your own, without constantly referring back to this example.</li>
+<li>Implement mouse controls, so you can rotate the cube by dragging (turn off the automatic rotation for this).</li>
+<li>Draw similar shapes, based on <a href="https://en.wikipedia.org/wiki/Sierpinski_triangle">dissecting tetrahedra</a>.</li>
+</ol>
+<h3 id="graphics-references">Graphics references</h3>
+<p>If you try to decipher the graphics code from the skeleton, the following links might help you out.</p>
+<h4 id="sdl2">SDL2</h4>
+<ul>
+<li><a href="https://wiki.libsdl.org/CategoryAPI" class="uri">https://wiki.libsdl.org/CategoryAPI</a></li>
+<li><a href="http://lazyfoo.net/tutorials/SDL/01_hello_SDL/index.php" class="uri">http://lazyfoo.net/tutorials/SDL/01_hello_SDL/index.php</a></li>
+</ul>
+<h4 id="opengl">OpenGL</h4>
+<ul>
+<li><a href="https://open.gl/drawing" class="uri">https://open.gl/drawing</a></li>
+<li><a href="http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/" class="uri">http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/</a></li>
+<li><a href="https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glBegin.xml" class="uri">https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glBegin.xml</a></li>
+<li><a href="https://www.cprogramming.com/tutorial/opengl_first_opengl_program.html" class="uri">https://www.cprogramming.com/tutorial/opengl_first_opengl_program.html</a></li>
+<li><a href="https://www.zhieng.com/sdl2-with-opengl/" class="uri">https://www.zhieng.com/sdl2-with-opengl/</a></li>
+<li><a href="http://antongerdelan.net/opengl/hellotriangle.html" class="uri">http://antongerdelan.net/opengl/hellotriangle.html</a></li>
+<li><a href="http://www.songho.ca/opengl/gl_projectionmatrix.html" class="uri">http://www.songho.ca/opengl/gl_projectionmatrix.html</a></li>
+<li><a href="http://www.songho.ca/opengl/gl_transform.html" class="uri">http://www.songho.ca/opengl/gl_transform.html</a></li>
+<li><a href="https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glMatrixMode.xml" class="uri">https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glMatrixMode.xml</a></li>
+<li><a href="https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glFrustum.xml" class="uri">https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glFrustum.xml</a></li>
+<li><a href="https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glBegin.xml" class="uri">https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glBegin.xml</a></li>
+<li><a href="https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glVertex.xml" class="uri">https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glVertex.xml</a></li>
+<li><a href="https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glTranslate.xml" class="uri">https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glTranslate.xml</a></li>
+</ul>
+<!---}}-->
+<!---{{ Submission proc-->
+<h2 id="submission-procedure">Submission Procedure</h2>
+<p>Just turn in <code>mengerfy.cpp</code> using the usual <a href="https://www-cs.ccny.cuny.edu/~wes/CSC103/upload.html">submission page</a>. Remember to save your receipt.</p>
+<!---}}-->
+<!---{{ Links-->
+<!---}}-->
+<!---
+% vim:ff=unix:textwidth=78:foldmethod=marker:foldmarker={{,}}
+-->
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>The Cantor set is defined to be the limit of this process (what remains after applying the transformation an infinite number of times), but we will stop after only a few iterations.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>A few of these aren’t very interesting, e.g., one gives you nothing, others give just a (sub-)cube, and some configurations are (visually) redundant.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>The random access isn’t really necessary as long as we can iterate through the structure (and in fact random access a feature of the STL’s particular implementation), but…<code>deque</code>s are cool, so that’s what I’m recommending.<a href="#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>It’s “magic”, in that you can only see it if it scatters off of a surface, but not directly. The faces are also a little magical, as the light passes through them in <em>one</em> direction, and scatters in the other.<a href="#fnref4" class="footnote-back">↩</a></p></li>
+</ol>
+</section>
+</body>
+</html>

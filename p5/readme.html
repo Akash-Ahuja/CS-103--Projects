@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="" />
+  <title>103 Project 5: Towers of Hanoi</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  
+  <style type="text/css">
+  body 
+  {
+  	font-family:Gill Sans MT;
+  	color:#657b83;
+  	background-color:#fdf6e3;
+  	max-width:500pt;
+  	padding-left:25pt;
+  	padding-right:25pt;
+  	padding-bottom:20pt;
+  	margin:0 auto 0 auto;
+  	text-align:justify;
+  }
+  a:link {color:#6c71c4;}
+  a:visited {color:#859900;}
+  a:hover {color:#268bd2;}
+  a:active {color:#d33682;}
+  h1{}
+  h2{border-style:solid;
+   text-align:center;
+  }
+  h3
+  {
+  	margin-bottom:2pt;
+  	/*color:#268bd2;*/
+  	font-weight:bold;
+  }
+  strong
+  {
+  	color:#d33682;
+  	font-weight:bolder;
+  }
+  em
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  	font-weight:bolder;
+  }
+  code
+  {
+      background-color:#eee8d5;
+      color:#586e75;
+  }
+  table.sourceCode
+  {
+      background-color:#eee8d5;
+      color:#586e75;
+  }
+  pre.sourceCode
+  {
+      background-color:#eee8d5;
+      color:#586e75;
+  }
+  .math
+  {
+      /*background-color:#eee8d5;*/
+      color:#586e75;
+      font-family:Times New Roman;
+  }
+  /*use a contextual style to undo the blue-ness:*/
+  .math em
+  {
+      color:#586e75;
+  	font-weight:normal;
+  }
+  .descrip
+  {
+  	max-width:500pt;
+  	padding-left:25pt;
+  	text-align:justify;
+  }
+  .descripbig
+  {
+  	max-width:575pt;
+  	padding-left:0pt;
+  	text-align:justify;
+  }
+  .emph
+  {
+  	color:#d33682;
+  	font-weight:bolder;
+  }
+  .litem
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  	font-weight:bolder;
+  }
+  .hl
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  }
+  .required
+  {
+  	color:#268bd2;
+  	font-style:italic;
+  	font-weight:bold;
+  }
+  .inputbox
+  {
+  	background-color:#eee8d5;
+  	color:#586e75;
+  	font-family:Gill Sans MT;
+  	font-weight:bolder;
+  }
+  </style>
+</head>
+<body>
+<header>
+<h1 class="title">103 Project 5: Towers of Hanoi</h1>
+<p class="author"></p>
+</header>
+<h3 id="due-sunday-november-25th-1159pm"><em>Due:</em> Sunday, November 25th <span class="citation" data-cites="11:59pm">@11:59pm</span></h3>
+<!---{{ Synopsis-->
+<h2 id="synopsis">Synopsis</h2>
+<p>In this project, you are asked to implement a general solution to the <em>Towers of Hanoi</em> puzzle. Here are a few things you should learn from this:</p>
+<ul>
+<li>The basics of recursion</li>
+<li>Basics of the <a href="http://en.wikipedia.org/wiki/Call_stack">runtime stack</a>, and some of the low-level details of how function calls work</li>
+<li>A bit about command line arguments, and the standard ways for handling them</li>
+</ul>
+<h3 id="suggested-reading">Suggested Reading</h3>
+<ul>
+<li>Chapter 10 of the book.</li>
+<li>Charles Li’s notes – <a href="http://www.charlesli.org/pic10a/lectures/lecture26/index.html">Lecture 26</a>.</li>
+</ul>
+<h3 id="important-notes-on-grading">Important Notes on Grading</h3>
+<p>As always,</p>
+<ul>
+<li>Code that does not compile will receive a 0.</li>
+<li>Files that are not properly named will receive a 0. (See the section below on “what to submit.”)</li>
+</ul>
+<!---}}-->
+<!---{{ intro-->
+<h2 id="introduction">Introduction</h2>
+<p>The Towers of Hanoi puzzle is described as follows: there are <span class="math inline"><em>n</em></span> disks on one of 3 pegs, with each disk smaller than the one below it. The goal is to move all of the disks from the initial peg to another (distinct) peg of your choice <strong>subject to the following rules</strong>:</p>
+<ol type="1">
+<li>You can only move one disk at a time.</li>
+<li>You can not place a bigger disk on top of a smaller one (i.e., you must maintain the ordering at all times). An illustration is provided below.</li>
+</ol>
+<figure>
+<img src="http://upload.wikimedia.org/wikipedia/commons/6/60/Tower_of_Hanoi_4.gif" alt="Fig. 1: Animation for 4 disks" /><figcaption>Fig. 1: Animation for 4 disks</figcaption>
+</figure>
+<p>The main goal (for you as a student) is to learn about recursion, and indeed, you can write a recursive solution for this problem with relative ease (maybe 4 - 6 lines, not counting <code>#includes</code> and the boilerplate stuff in the <code>main()</code> function). Given that simplicity, one could almost apply a “brute force” attack on this project, just writing down all random 5 line programs that even remotely make sense until one works. <strong>Please don’t do that</strong>. I want you to really understand the basics of recursion once you are done with this, and be able to trace through every function call that is invoked during the execution of your solution. It might be frustrating, and you might be tempted to look up an answer somewhere, but <strong>you must resist the temptation!</strong> You have an entire week. Keep thinking about it until you get it. Otherwise, you will learn nothing, it will be a complete waste of time, and it will hurt you in the future.</p>
+<!---}}-->
+<!---{{ Details-->
+<h2 id="details">Details</h2>
+<h3 id="command-line-arguments">Command line arguments</h3>
+<p>One of the goals of this project is to teach you something about command line arguments. These are kind of like function parameters, but passed to your entire program from the command line. You have seen this all before. For example, when you invoke something like <code>g++ -c blah.cpp -o blah.o</code>. The <code>-c blah.cpp</code> tells g++ to compile <code>blah.cpp</code> and the <code>-o blah.o</code> says “put the output in <code>blah.o</code>”. To make options more readable, a lot of command line utilities also make use of <em>long options</em>, like <code>--version</code>. These typically (but not always) start with two dashes, and have a more descriptive name. We’ll make use of both for our program.</p>
+<p>Parsing the arguments from the command line can be kind of annoying. However, it is an extremely common task, and as such, there’s fortunately an “easy button” for it, called <a href="http://www.gnu.org/software/libc/manual/html_node/Getopt.html#Getopt">getopt</a>. The <a href="http://www.gnu.org/software/libc/manual/html_node/Getopt.html#Getopt">getopt</a> and <a href="http://www.gnu.org/software/libc/manual/html_node/Getopt-Long-Options.html#Getopt-Long-Options">getopt_long</a> functions take most, if not all of the pain out of processing arguments. I’ll leave it to you to read the documentation – I’ve given you skeleton code in <code>towers.cpp</code> that shows you the basic usage. Here’s a quick summary of the options we’ll implement.</p>
+<h4 id="n--num-disks"><code>-n,--num-disks</code></h4>
+<p>This is the number of disks to use.</p>
+<h4 id="s--start"><code>-s,--start</code></h4>
+<p>This is the starting post.</p>
+<h4 id="e--end"><code>-e,--end</code></h4>
+<p>This is the ending post.</p>
+<p><strong>Important:</strong> your program should just print the steps of the solution in the following format: <code>&lt;start post&gt;&lt;tab&gt;&lt;end post&gt;&lt;newline&gt;</code>. Here is an example:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" data-line-number="1">$ <span class="ex">./towers</span> -n 4 -s 1 -e 3</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="ex">1</span>   2</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="ex">1</span>   3</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="ex">2</span>   3</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="ex">1</span>   2</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="ex">3</span>   1</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="ex">3</span>   2</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="ex">1</span>   2</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="ex">1</span>   3</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="ex">2</span>   3</a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="ex">2</span>   1</a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="ex">3</span>   1</a>
+<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="ex">2</span>   3</a>
+<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="ex">1</span>   2</a>
+<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="ex">1</span>   3</a>
+<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="ex">2</span>   3</a></code></pre></div>
+<p><em>NOTE:</em> Don’t worry so much about all this <code>getopt</code> stuff. This is of far lesser importance than getting the solution right. It is of course good to know, and this knowledge will serve you well in the future, but don’t let it distract you much – get help quickly via the message board if you are having trouble with this part.</p>
+<h3 id="other-notes-and-hints">Other notes and hints</h3>
+<h4 id="regarding-the-organization">Regarding the organization</h4>
+<p>You will probably want to isolate the function that solves the puzzle so that it has a nice recursive breakdown (it would be pretty awkward to make <code>main(...)</code> recursive). A prototype might take three integers for the inputs, and then just print to <code>cout</code>. It probably doesn’t need to return a value.</p>
+<h4 id="input-and-output">Input and output</h4>
+<p>If strange things are entered into your program (e.g., pegs that don’t exist) you can just terminate the program. If people enter strange command line options or leave out values when then need to be specified, then you can just exit the program. It will only be tested on sane inputs.</p>
+<h4 id="notes-on-getopt">Notes on <code>getopt</code></h4>
+<p>The option processing is all done for you, but if you want to understand what happened, here is an explanation.</p>
+<p>The loop for processing arguments looks something like the following:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource cpp numberLines"><code class="sourceCode cpp"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="cf">while</span> ((c = getopt_long(argc, argv, <span class="st">&quot;s:e:n:&quot;</span>, long_opts, &amp;opt_index)) != <span class="dv">-1</span>) {</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">    <span class="cf">switch</span> (c) {</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">        <span class="cf">case</span> <span class="ch">&#39;s&#39;</span>: <span class="co">// process option s</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">            <span class="cf">break</span>;</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">        <span class="cf">case</span> <span class="ch">&#39;e&#39;</span>: <span class="co">// process option e</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">            <span class="cf">break</span>;</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">        <span class="co">// ...  handle other cases...</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">    }</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">}</a></code></pre></div>
+<p>Some of the options require an argument, e.g. the start post. For such options, a special variable called <code>optarg</code>, is used to store the argument during the loop. It is defined in <code>getopt.h</code>, like this:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="at">extern</span> <span class="dt">char</span> *optarg;</a></code></pre></div>
+<p>Note that it is a <em>c-style string</em>, which is just a plain array of characters with a 0-character at the end. You will need to convert this into an integer. One convenient way is the <a href="http://www.cplusplus.com/reference/clibrary/cstdlib/atol/"><code>atol</code> function</a>. You can use it like this:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="cf">case</span> <span class="ch">&#39;s&#39;</span>: <span class="co">// process option s</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">    start = atoi(optarg);</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">    <span class="cf">break</span>;</a></code></pre></div>
+<h3 id="testing">Testing</h3>
+<p>You should be able to test this out with some spare change, or maybe some stray coasters at your home. Alternatively, I gave you a test script, and the output of my program on it. You can run the test script with <code>./test.sh</code>, which will produce a file called <code>output</code> based on your program. My output file is located in <code>soutput</code>. You can check those against each other if you want. <em>Note:</em> It is possible that a correct answer will have slightly different output, but not likely. Check with me if you are concerned.</p>
+<!---}}-->
+<!---{{ Feeling bored?-->
+<h2 id="feeling-bored">Feeling Bored?</h2>
+<p>If you’re feeling good about your progress and your understanding of recursion, and if you’d like an extra challenge, try this: re-write the algorithm for the Towers of Hanoi problem <em>non-recursively</em>. It really isn’t too hard, but it certainly takes more than 5 lines of code! It might give you some additional appreciation for the power and elegance that recursive algorithms can have. <strong>Extra-extra challenge:</strong> run some timing tests and make sure that your non-recursive version actually <em>goes faster.</em> This may not be entirely trivial, depending on how you came up with your non-recursive solution. Your first correct attempt will likely be slower than the recursive version (especially if you used 1 disk as your base case, rather than letting the recursion run all the way to <span class="math inline"><em>n</em> = 0</span>).</p>
+<!---}}-->
+<!---{{ Submission proc-->
+<h2 id="submission-procedure">Submission Procedure</h2>
+<p>Turn your assignment in <a href="https://www-cs.ccny.cuny.edu/~wes/CSC103/upload.html">here</a>. A few <strong>important notes:</strong></p>
+<ul>
+<li><em>Save the receipt.</em> You will need this to get your homework score back later from <a href="https://www-cs.ccny.cuny.edu/~wes/CSC103/download.html">the hw download page</a>.</li>
+<li><em>Don’t change the filename.</em> Just edit and submit the file from the repository (<code>towers.cpp</code>). If you turn a file with a different name, it will not be graded.</li>
+<li><em>Respect the deadline.</em> Turning in homework past the deadline will be noticed, and may lead to a zero.</li>
+</ul>
+<!---}}-->
+<!---{{ Links-->
+<!---}}-->
+<!---
+% vim:ff=unix:textwidth=78:foldmethod=marker:foldmarker={{,}}
+-->
+</body>
+</html>

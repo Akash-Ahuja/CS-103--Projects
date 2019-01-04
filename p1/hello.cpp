@@ -10,4 +10,39 @@
  *
  */
 
+  #include <iostream>
+
+  using std::cin;
+  using std::cout;
+
+  #include <string>
+  using std::string;
+
+  int main()
+
+  {
+
+   string x;
+   string y;
+
+   cout << "What is the name of your favorite person? \n";
+   cin >> x;
+
+   cout << "Name one of your close relatives: \n";
+   cin >> y;
+
+   cout << "Well, a fact for you. Do you know ";
+   cout << x;
+   cout <<" and ";
+   cout << y;
+   cout << " used to attend the same highschool? \n";
+
+
+   return 0;
+
+  }
+
+
+
+
 
